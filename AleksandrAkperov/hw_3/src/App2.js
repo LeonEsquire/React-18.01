@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Menu from './components/Menu';
+import Login from "./components/Login";
 
 class App extends Component {
     render() {
@@ -12,6 +13,7 @@ class App extends Component {
 
         return <div>
                  <Menu titleMenu="Меню работает" items={menuItems}/>
+                 <Login/>
         </div>;
     }
 }
