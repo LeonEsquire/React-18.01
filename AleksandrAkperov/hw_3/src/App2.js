@@ -13,7 +13,8 @@ class App extends Component {
 
         return <div>
                  <Menu titleMenu="Меню работает" items={menuItems}/>
-                 <Login/>
+
+                      <Login/>
         </div>;
     }
 }
