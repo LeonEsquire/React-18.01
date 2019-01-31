@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class Menu extends React.Component {
     render() {
         const items = this.props.items.map((item, index) => {
-            return <li><a href={item.href}>{item.name}</a></li>
+            return <li><a key={index} href={item.href}>{item.name}</a></li>
         });
         
 
