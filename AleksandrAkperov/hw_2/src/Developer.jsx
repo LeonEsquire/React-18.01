@@ -7,7 +7,7 @@ class Developer {
     }
 }
 
-const Developer_1 = new Developer(10, 'IT', 'Avramenko', 'текст импортированный из Developer');
+const DeveloperOne = new Developer(10, 'IT', 'Avramenko', 'текст импортированный из Developer');
 
 
-export default Developer_1;
+export default DeveloperOne;
