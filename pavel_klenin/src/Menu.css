@@ -1,0 +1,22 @@
+.menu {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+
+.menu li {
+    padding: 0 5px;
+}
+
+.menu a {
+    display: block;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    color: #cec0ad;
+}
+
+.menu a:active {
+    transform: scale(0.95);
+}

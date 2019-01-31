@@ -1,0 +1,13 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    font-family: sans-serif;
+    color: #684934;
+}
+
+.header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+}

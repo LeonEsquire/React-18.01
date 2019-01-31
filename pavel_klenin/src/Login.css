@@ -1,0 +1,50 @@
+.loginForm fieldset {
+    padding: 10px;
+    border-color: #684934;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.login,
+.password {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.login label,
+.password label {
+    margin-right: 5px;
+}
+
+.login input,
+.password input {
+    border-radius: 3px;
+    border-color: #dbd7d1;
+    outline-color: #684934;
+}
+
+.login input:hover,
+.password input:hover {
+    border: 2px solid #cec0ad;
+}
+
+.submitBtn {
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    text-transform: uppercase;
+    outline: none;
+    background-color: #dbd7d1;
+}
+
+.submitBtn:hover {
+    cursor: pointer;
+    background-color: #cec0ad;
+    border-color: #cec0ad;
+}
+
+.submitBtn:active {
+    transform: scale(0.95);
+}

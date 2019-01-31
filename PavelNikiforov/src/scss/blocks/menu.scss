@@ -1,0 +1,31 @@
+.menu {
+    &__main {
+        background: $primaryColor;
+        display: flex;
+        padding: 0 15px;
+        list-style-type: none;
+        flex-direction: row;
+        flex-wrap: nowrap;
+
+        @media screen and (max-width: 760px) {
+            flex-direction: column;
+            padding: 0;
+        }
+
+        .menu {
+            &__item {
+                transition: background-color 0.5s ease;
+
+                &:hover {
+                    background: $primaryColorDark;
+                }
+            }
+            &__link {
+                padding: 15px;
+                display: -webkit-box;
+                color: $white;
+                text-decoration: none
+            }
+        }
+    }
+}

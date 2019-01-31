@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&subset=cyrillic');
+@import './colors.scss';
+
+$font-family: 'Roboto';
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: $font-family;
+}
+
+@import './blocks.scss';
