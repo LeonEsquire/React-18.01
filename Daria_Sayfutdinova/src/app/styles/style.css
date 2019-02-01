@@ -1,0 +1,64 @@
+.blog {
+    display: block;
+    background-color: #eae7e7;
+    padding: 5px;
+}
+
+.post {
+    display: block;
+    background: #feffff;
+    background: -moz-linear-gradient(45deg, #feffff 0%, #d2ebf9 100%);
+    background: -webkit-linear-gradient(45deg, #feffff 0%,#d2ebf9 100%);
+    background: linear-gradient(45deg, #feffff 0%,#d2ebf9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#d2ebf9',GradientType=1 );
+    border: 1px solid gray;
+    border-radius: 10px 0px;
+    margin: 5px 0;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+
+}
+
+.post:hover {
+       transform:  scale(1.01);
+}
+
+ .blog p {
+ padding-left: 10px;
+     font-family: Verdana;
+ }
+
+.blog h2 {
+    padding-left: 10px;
+    color: #62b7a9;
+    font-family: Verdana;
+
+}
+
+.modal {
+    background-color: white;
+    width: 310px;
+    height: 242px;
+    border: 2px solid darkslategray;
+    display: block;
+    margin: -560px auto;
+    position: relative;
+
+
+    }
+
+.modal img {
+    transform: scale(0.5);
+    margin: -95px  -144px;
+
+
+
+}
+
+ .button {
+     display: block;
+     margin: 0 auto;
+     background-color: #d2ebf9;
+     outline: none;
+     box-shadow: 3px 3px 5px rgba(37, 95, 255, 0.34);
+     border-radius: 5px;
+ }

@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   	entry:{
-		main: path.resolve('./src/app.js'),
+		main: path.resolve('./src/app/app.js'),
 	},
 
 	output: {
@@ -14,11 +14,17 @@ module: {
 	{
 		test:/\.js$/,
 		exclude: /node_modules/,
-use: {
-	 loader: 'babel-loader',
-	}
+	    use: 'babel-loader',
+	},
+    {
+        test: /\.css$/,
+        use:['style-loader', 'css-loader']
+},
 
-},],},
+
+
+],
+},
 resolve: {
 	extensions: ['.js', '.jsx'],
 
