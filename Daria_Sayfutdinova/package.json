@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development",
-    "start": "webpack --watch"
+    "start": "webpack-dev-server --mode development"
+
   },
   "keywords": [],
   "author": "",
@@ -24,9 +25,14 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "bootstrap": "^4.2.1",
     "create-react-class": "^15.6.3",
+    "jquery": "^3.3.1",
+    "popper": "^1.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "react-router": "^3.2.1"
   }
 }
