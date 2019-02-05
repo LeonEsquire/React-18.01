@@ -1,25 +1,44 @@
+
 import React from 'react';
-import {Link} from 'react-router';
+import Menu from '../components/Menu';
+import MenuItem from '../components/MenuItem';
 
 export default class Layout extends React.Component {
+    constructor(props) {
+        super(props);
+        this.brand = 'React blog!';
+    }
+
+    isActive(href) {
+        return window.location.pathname === href;
+    }
+
     render() {
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-4">
-                        <ul>
-                            <li><Link to="/">Главная</Link></li>
-                            <li><Link to="/about">О нас</Link></li>
-                            <li><Link to="/contacts">Контакты</Link></li>
-                        </ul>
-                    </div>
-                    <div className="col-8">
-                        {this.props.children}
+            <div>
+                <Menu brand={this.brand}>
+                    <MenuItem href="/" active={this.isActive('/')}>
+                        Главная
+                    </MenuItem>
+                    <MenuItem href="/users" active={this.isActive('/users')}>
+                        Пользователи
+                    </MenuItem>
+                    <MenuItem href="/posts" active={this.isActive('/posts')}>
+                        Статьи
+                    </MenuItem>
+
+                </Menu>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            {this.props.children}
+                        </div>
                     </div>
                 </div>
+                <footer className="card-footer">
+                    &copy; 2019
+                </footer>
             </div>
-
-        )
+        );
     }
 }
-
