@@ -1,0 +1,15 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    ".git",
+    ".idea",
+    "node_modules/**/node_modules",
+    "bin"
+  ],
+  "verbose": true,
+  "watch": [
+    "src/api.js",
+    "src/api/"
+  ],
+  "ext": "*"
+}
