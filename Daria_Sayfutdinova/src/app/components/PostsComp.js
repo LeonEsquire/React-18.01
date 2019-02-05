@@ -22,7 +22,7 @@ export default class PostsComp extends React.Component {
         }
 
         const posts = this.state.posts.map((post, index) => {
-            return <Post key={index} {...posts} />
+            return <Post key={index} {...post} />
         });
 
         return (
