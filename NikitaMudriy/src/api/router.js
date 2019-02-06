@@ -3,7 +3,7 @@ import {Router} from 'express';
 export default function(operations, service){
     const router = new Router();
 
-    for (let operation of operations) {
+    for(let operation of operations){
         router[operation.method](operation.path, async (req, res, next) => {
             const options = {...req.query, ...(['post', 'put'].indexOf(operation.method) !== -1 ? req.body : {}), ...req.params};
 
@@ -21,7 +21,7 @@ export default function(operations, service){
                 status = error.status || 500;
                 data = {
                     error: error.message || 'Server Error',
-                    parameters: error.parameters || {}
+                    parameters: error.parameters || options || {}
                 };
 
                 return res.status(status).send(data);

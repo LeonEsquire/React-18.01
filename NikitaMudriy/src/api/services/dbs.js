@@ -1,39 +1,32 @@
+import Service from './service';
 import ServiceError from '../service-error';
 
-export default class DBs {
-
-    constructor(dataProvider){
-        this.dataProvider = dataProvider;
-    }
-
-    async exists(options){
-        if(!options.id)
-            throw new ServiceError(500, `Wrong parameters.`, options);
-
-        return {
-            status: 200,
-            data: await this.dataProvider.exists(options.id)
-        };
-    }
+export default class DBs extends Service {
 
     async get(options){
+        let filtered = this.constructor.filter(options);
+
         return {
             status: 200,
-            data: await this.dataProvider.get(options.id ? options.id : null)
+            data: await this.dataProvider.get(filtered.id ? filtered.id : null)
         };
     }
 
     async create(options){
-        if(!options.id)
+        let filtered = this.constructor.filter(options);
+
+        if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
         return {
             status: 200,
-            data: await this.dataProvider.create(options.id)
+            data: await this.dataProvider.create(filtered.id)
         };
     }
 
     async edit(options){
+        let filtered = this.constructor.filter(options);
+
         if(!options.oldId || !options.newId)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
@@ -44,69 +37,95 @@ export default class DBs {
     }
 
     async remove(options){
-        if(!options.id)
+        let filtered = this.constructor.filter(options);
+
+        if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
         return {
             status: 200,
-            data: await this.dataProvider.remove(options.id)
+            data: await this.dataProvider.remove(filtered.id)
+        };
+    }
+
+    async exists(options){
+        let filtered = this.constructor.filter(options);
+
+        if(!filtered.id)
+            throw new ServiceError(500, `Wrong parameters.`, options);
+
+        return {
+            status: 200,
+            data: await this.dataProvider.exists(filtered.id)
         };
     }
 
     async open(options){
-        if(!options.id)
+        let filtered = this.constructor.filter(options);
+
+        if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
         return {
             status: 200,
-            data: await this.dataProvider.open(options.id)
+            data: await this.dataProvider.open(filtered.id)
         };
     }
 
     async close(options){
+        let filtered = this.constructor.filter(options);
+
         return {
             status: 200,
-            data: await this.dataProvider.close(options.id ? options.id : null)
+            data: await this.dataProvider.close(filtered.id ? filtered.id : null)
         };
     }
 
     async init(options){
-        if(!options.id)
+        let filtered = this.constructor.filter(options);
+
+        if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
         return {
             status: 200,
-            data: await this.dataProvider.init(options.id)
+            data: await this.dataProvider.init(filtered.id)
         };
     }
 
     async drop(options){
-        if(!options.id)
+        let filtered = this.constructor.filter(options);
+
+        if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
         return {
             status: 200,
-            data: await this.dataProvider.drop(options.id)
-        };
-    }
-
-    async clear(options){
-        if(!options.id)
-            throw new ServiceError(500, `Wrong parameters.`, options);
-
-        return {
-            status: 200,
-            data: await this.dataProvider.clear(options.id)
+            data: await this.dataProvider.drop(filtered.id)
         };
     }
 
     async fill(options){
-        if(!options.id)
+        let filtered = this.constructor.filter(options);
+
+        if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
         return {
             status: 200,
-            data: await this.dataProvider.fill(options.id)
+            data: await this.dataProvider.fill(filtered.id)
+        };
+    }
+
+    async clear(options){
+        let filtered = this.constructor.filter(options);
+
+        if(!filtered.id)
+            throw new ServiceError(500, `Wrong parameters.`, options);
+
+        return {
+            status: 200,
+            data: await this.dataProvider.clear(filtered.id)
         };
     }
 

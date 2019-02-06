@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from "react-router";
 
-import Page from 'components/page';
-import Badge from 'components/badge';
+import Page from 'pages/page';
+
 import Message from 'components/message';
 import Form from 'components/form';
 
@@ -28,7 +28,7 @@ export default class Post extends Page {
                 <li className="list-group-item">Date: {new Date(this.state.data.date).toLocaleString()}</li>
             </ul>
             <div className="card-body">
-                <Link className="card-link btn btn-secondary" to={`/posts/${this.props.params.user}/comments`}>Comments</Link>
+                <Link className="card-link btn btn-secondary" to={`/posts/${this.props.params.post}/comments`}>Comments</Link>
                 <a className="card-link btn btn-danger" href="#" role="button" onClick={this.onRemove}>Remove</a>
             </div>
         </div>;
@@ -47,8 +47,6 @@ export default class Post extends Page {
     }
 
     get form(){
-        return <></>;
-
         let inputs = [],
             buttons = [],
             onSubmit = null;

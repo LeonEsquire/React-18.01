@@ -1,54 +1,18 @@
-import ServiceError from '../service-error';
+import Service from './service';
 
-export default class Users {
+export default class Users extends Service {
 
-    static RESOURCE = 'users';
     static OPTIONS = ['id', 'name', 'date'];
 
-    constructor(dataProvider){
-        this.dataProvider = dataProvider;
-    }
-
-    async get(options){
-        return {
-            status: 200,
-            data: await this.dataProvider[options.id ? 'first' : 'all'](Users.RESOURCE, options.id ? { id: options.id } : null)
-        };
-    }
-
     async register(options){
-        return {
-            status: 200,
-            data: await this.dataProvider.insert(Users.RESOURCE, Object.keys(options).filter(key => Users.OPTIONS.includes(key)).reduce((option, key) => {
-                option[key] = options[key];
-                return option;
-            }, {}))
-        };
-    }
+        let filtered = this.constructor.filter(options);
 
-    async edit(options){
-        if(!options.id)
-            throw new ServiceError(500, `Wrong parameters.`, options);
-
-        let {id, ...inserts} = options;
-
-        return {
-            status: 200,
-            data: await this.dataProvider.update(Users.RESOURCE, inserts, id)
-        };
-    }
-
-    async remove(options){
-        if(!options.id)
-            throw new ServiceError(500, `Wrong parameters.`, options);
-
-        return {
-            status: 200,
-            data: await this.dataProvider.delete(Users.RESOURCE, options)
-        };
+        return await this.create(filtered);
     }
 
     async login(options){
+        let filtered = this.constructor.filter(options);
+
         return {
             status: 200,
             data: { message: 'login', options }
@@ -56,6 +20,8 @@ export default class Users {
     }
 
     async logout(options){
+        let filtered = this.constructor.filter(options);
+
         return {
             status: 200,
             data: { message: 'logout', options }

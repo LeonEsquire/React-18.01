@@ -8,6 +8,10 @@ export default class DB {
 
     static EXTENSION = 'db';
 
+    static sleep(delay){
+        return new Promise((resolve, reject) => setTimeout(resolve, delay));
+    }
+
     db = null;
     id = null;
 
@@ -54,123 +58,167 @@ export default class DB {
 
     create(id){
         return new Promise(async (resolve, reject) => {
-            let exists = await this.exists(id);
-
-            if(exists){
-                reject({ message: `Database "${id}" already exists` });
-            }else{
-                fs.open(`${this.path}/${id}.${DB.EXTENSION}`, 'w', (error, fd) => {
-                    if(error){
-                        reject({ message: error.message });
-                    }else{
-                        fs.close(fd, error => error ? reject({ message: error.message }) : resolve(true));
-                    }
+            try{
+                let exists = await this.exists(id).catch(error => {
+                    throw new Error(error.message);
                 });
+
+                if(exists){
+                    throw new Error(`Database "${id}" already exists`);
+                }else{
+                    fs.open(`${this.path}/${id}.${DB.EXTENSION}`, 'w', (error, fd) => {
+                        if(error){
+                            throw new Error(error.message);
+                        }else{
+                            fs.close(fd, error => {
+                                if(error){
+                                    throw new Error(error.message);
+                                }else{
+                                    resolve(true);
+                                }
+                            });
+                        }
+                    });
+                }
+            }catch(error){
+                reject({ message: error.message });
             }
         });
     }
 
     rename(oldId, newId){
         return new Promise(async (resolve, reject) => {
-            let opened = this.isOpened(oldId),
-                oldExists = await this.exists(oldId),
-                newExists = await this.exists(newId);
-
-            switch(true){
-                case oldExists && newExists:
-                    reject({ message: `Database "${newId}" already exists` });
-                    break;
-                case !oldExists && !newExists:
-                    reject({ message: `Database "${oldId}" not exists` });
-                    break;
-                case !oldExists && newExists:
-                    reject({ message: `Database "${oldId}" not exists and "${newId}" already exists` });
-                    break;
-                default:
-                    if(opened)
-                        await this.close(oldId);
-
-                    fs.rename(`${this.path}/${oldId}.${DB.EXTENSION}`, `${this.path}/${newId}.${DB.EXTENSION}`, async error => {
-                        if(error){
-                            if(opened)
-                                await this.open(oldId);
-
-                            reject({ message: error.message });
-                        }else{
-                            if(opened)
-                                await this.open(newId);
-
-                            resolve(true);
-                        }
+            try{
+                let opened = this.isOpened(oldId),
+                    oldExists = await this.exists(oldId).catch(error => {
+                        throw new Error(error.message);
+                    }),
+                    newExists = await this.exists(newId).catch(error => {
+                        throw new Error(error.message);
                     });
+
+                switch(true){
+                    case oldExists && newExists:
+                        throw new Error(`Database "${newId}" already exists`);
+                    case !oldExists && !newExists:
+                        throw new Error(`Database "${oldId}" not exists`);
+                    case !oldExists && newExists:
+                        throw new Error(`Database "${oldId}" not exists and "${newId}" already exists`);
+                    default:
+                        if(opened)
+                            await this.close(oldId).catch(error => {
+                                throw new Error(error.message);
+                            });
+
+                        fs.rename(`${this.path}/${oldId}.${DB.EXTENSION}`, `${this.path}/${newId}.${DB.EXTENSION}`, async error => {
+                            if(opened)
+                                await this.open(newId).catch(error => {
+                                    throw new Error(error.message);
+                                });
+
+                            if(error){
+                                throw new Error(error.message);
+                            }else{
+                                resolve(true);
+                            }
+                        });
+                }
+            }catch(error){
+                reject({ message: error.message });
             }
         });
     }
 
     remove(id){
         return new Promise(async (resolve, reject) => {
-            let opened = this.isOpened(id),
-                exists = await this.exists(id);
+            let opened = this.isOpened(id);
 
-            if(exists){
-                if(opened)
-                    await this.close(id);
+            try{
+                let exists = await this.exists(id).catch(error => {
+                    throw new Error(error.message);
+                });
 
-                fs.unlink(`${this.path}/${id}.${DB.EXTENSION}`, error => error ? reject({ message: error.message }) : resolve(true));
-            }else{
-                reject({ message: `Database "${id}" not exists` });
+                if(exists){
+                    if(opened)
+                        await this.close(id).catch(error => {
+                            throw new Error(error.message);
+                        });
+
+                    fs.unlink(`${this.path}/${id}.${DB.EXTENSION}`, error => {
+                        if(error){
+                            throw new Error(error.message);
+                        }else{
+                            resolve(true);
+                        }
+                    });
+                }else{
+                    throw new Error(`Database "${id}" not exists`);
+                }
+            }catch(error){
+                reject({ message: error.message });
             }
         });
     }
 
     open(id){
         return new Promise(async (resolve, reject) => {
-            let opened = this.isOpened(this.id) ? this.id : null;
+            let was = this.isOpened(this.id) ? this.id : null,
+                opened = this.isOpened(id);
 
-            if(this.isOpened(id)){
-                reject({ message: `Database "${id}" already opened` });
-            }else{
-                if(opened)
-                    await this.close(opened);
+            try{
+                if(opened){
+                    throw new Error(`Database "${id}" already opened`);
+                }else{
+                    if(opened)
+                        await this.close(was).catch(error => {
+                            throw new Error(error.message);
+                        });
 
-                this.db = new sqlite3.Database(`${this.path}/${id}.${DB.EXTENSION}`, sqlite3.OPEN_READWRITE, async error => {
-                    if(error){
-                        if(opened)
-                            await this.open(opened);
+                    this.db = new sqlite3.Database(`${this.path}/${id}.${DB.EXTENSION}`, sqlite3.OPEN_READWRITE, async error => {
+                        if(error){
+                            if(was)
+                                await this.open(was).catch(error => {
+                                    throw new Error(error.message);
+                                });
 
-                        reject({ message: error.message });
-                    }else{
-                        this.id = id;
+                            throw new Error(error.message);
+                        }else{
+                            this.id = id;
 
-                        resolve(true);
-                    }
-                });
+                            resolve(true);
+                        }
+                    });
+                }
+            }catch(error){
+                reject({ message: error.message });
             }
         });
     }
 
     close(id = this.id){
         return new Promise((resolve, reject) => {
-            switch(true){
-                case this.id === null:
-                    reject({ message: `No database opened` });
-                    break;
-                case id !== null && !this.isOpened(id):
-                    reject({ message: `Wrong database id "${id}"` });
-                    break;
-                case id === null && this.id !== null:
-                    id = this.id;
-                default:
-                    this.db.close(error => {
-                        if(error){
-                            reject({ message: error.message });
-                        }else{
-                            this.db = null;
-                            this.id = null;
+            try{
+                switch(true){
+                    case this.id === null:
+                        throw new Error(`No database opened`);
+                    case id !== null && !this.isOpened(id):
+                        throw new Error(`Wrong database id "${id}"`);
+                    case id === null && this.id !== null:
+                        id = this.id;
+                    default:
+                        this.db.close(error => {
+                            if(error){
+                                throw new Error(error.message);
+                            }else{
+                                this.db = null;
+                                this.id = null;
 
-                            resolve(true);
-                        }
-                    });
+                                resolve(true);
+                            }
+                        });
+                }
+            }catch(error){
+                reject({ message: error.message });
             }
         });
     }
@@ -179,34 +227,47 @@ export default class DB {
         return new Promise(async (resolve, reject) => {
             let was = this.id;
 
-            if(!id){
-                reject({message: `Wrong database id "${id}"`});
-            }else{
-                if(id !== was)
-                    await this.open(id);
+            if(id){
+                try{
+                    if(id !== was)
+                        await this.open(id).catch(error => {
+                            throw new Error(error.message);
+                        });
 
-                for(let table in schema){
-                    let fields,
-                        params = [];
+                    for(let table in schema){
+                        let fields,
+                            params = [];
 
-                    if(schema[table].fields){
-                        fields = Object.keys(schema[table].fields);
+                        if(schema[table].fields){
+                            fields = Object.keys(schema[table].fields);
 
-                        if(fields.length){
-                            params = fields.map(field => `${field} ${schema[table].fields[field]}`);
+                            if(fields.length){
+                                params = fields.map(field => `${field} ${schema[table].fields[field]}`);
 
-                            if(schema[table].keys)
-                                params = [...params, ...schema[table].keys];
+                                if(schema[table].keys)
+                                    params = [...params, ...schema[table].keys];
+                            }
                         }
+
+                        await this.query(`CREATE TABLE ${table} (${params.join(', ')});`).catch(error => {
+                            throw new Error(error.message);
+                        });
                     }
 
-                    this.db.run(`CREATE TABLE ${table} (${params.join(', ')});`, async (error) => {
-                        if(id !== was && was)
-                            await this.open(was);
+                    if(id !== was && was)
+                        await this.open(was).catch(error => {
+                            throw new Error(error.message);
+                        });
 
-                        error ? reject({ message: error.message }) : resolve(true);
-                    });
+                    resolve(true);
+                }catch(error){
+                    if(id !== was && was)
+                        await this.open(was).catch(error => reject({ message: error.message }));
+
+                    reject({ message: error.message });
                 }
+            }else{
+                throw new Error(`Wrong database id "${id}"`);
             }
         });
     }
@@ -215,15 +276,27 @@ export default class DB {
         return new Promise(async (resolve, reject) => {
             let opened = this.isOpened(id);
 
-            if(opened)
-                await this.close(id);
-
-            fs.truncate(`${this.path}/${id}.${DB.EXTENSION}`, 0, async error => {
+            try{
                 if(opened)
-                    await this.open(id);
+                    await this.close(id).catch(error => {
+                        throw new Error(error.message);
+                    });
 
-                error ? reject({ message: error.message }) : resolve(true);
-            });
+                fs.truncate(`${this.path}/${id}.${DB.EXTENSION}`, 0, async error => {
+                    if(opened)
+                        await this.open(id).catch(error => {
+                            throw new Error(error.message);
+                        });
+
+                    if(error){
+                        throw new Error(error.message);
+                    }else{
+                        resolve(true);
+                    }
+                });
+            }catch(error){
+                reject({ message: error.message });
+            }
         });
     }
 
@@ -231,74 +304,133 @@ export default class DB {
         return new Promise(async (resolve, reject) => {
             let was = this.id;
 
-            if(id !== was)
-                await this.open(id);
+            try{
+                let data = {};
 
-            fetch('https://jsonplaceholder.typicode.com/users').then(result => result.json()).then(users => {
-                fetch('https://jsonplaceholder.typicode.com/posts').then(result => result.json()).then(posts => {
-                    fetch('https://jsonplaceholder.typicode.com/comments').then(result => result.json()).then(comments => {
-                        let emails = {};
+                if(id !== was)
+                    await this.open(id).catch(error => {
+                        throw new Error(error.message);
+                    });
 
-                        for(let user of users){
-                            emails[user.email.toLowerCase()] = user.id;
-                        }
+                for(let table in schema){
+                    await fetch(`https://jsonplaceholder.typicode.com/${table}`).then(result => result.json()).then(result => {
+                        data[table] = result;
 
-                        let data = {
-                                users: users.map(user => {
+                        switch(table){
+                            case 'users':
+                                result = result.map(user => {
                                     return {
                                         id: user.id,
                                         name: user.name
                                     };
-                                }),
-                                posts: posts.map(post => {
+                                });
+                                break;
+                            case 'posts':
+                                result = result.map(post => {
                                     return {
                                         id: post.id,
                                         title: post.title,
                                         text: post.body,
                                         author: post.userId
                                     };
-                                }),
-                                comments: comments.map(comment => {
+                                });
+                                break;
+                            case 'comments':
+                                result = result.map(comment => {
+                                    let emails = {};
+
+                                    for(let user of data.users){
+                                        emails[user.email.toLowerCase()] = user.id;
+                                    }
+
                                     return {
                                         id: comment.id,
                                         text: comment.body,
-                                        author: comment.email.toLowerCase() in emails ? emails[comment.email.toLowerCase()] : users[Math.round(Math.random() * (users.length - 1))].id,
+                                        author: comment.email.toLowerCase() in emails ? emails[comment.email.toLowerCase()] : data.users[Math.round(Math.random() * (data.users.length - 1))].id,
                                         post: comment.postId
                                     };
-                                })
-                            },
-                            inserts = {
-                                users: {
-                                    fields: ['id', 'name'],
-                                    values: data.users.map(user => `${user.id}, '${user.name}'`)
-                                },
-                                posts: {
-                                    fields: ['id', 'title', 'text', 'author'],
-                                    values: data.posts.map(post => `${post.id}, '${post.title}', '${post.text}', ${post.author}`)
-                                },
-                                comments: {
-                                    fields: ['id', 'text', 'author', 'post'],
-                                    values: data.comments.map(comment => `${comment.id}, '${comment.text}', ${comment.author}, ${comment.post}`)
-                                }
-                            };
-
-                        for(let insert in inserts){
-                            this.db.run(`INSERT INTO ${insert} (${inserts[insert].fields.join(', ')}) VALUES (${inserts[insert].values.join('),(')});`, [], async error => {
-                                if(id !== was && was)
-                                    await this.open(was);
-
-                                error ? reject({ message: error.message }) : resolve(true);
-                            });
+                                });
+                                break;
                         }
-                    }).catch(error => reject({ message: error.message }));
-                }).catch(error => reject({ message: error.message }));
-            }).catch(error => reject({ message: error.message }));
+
+                        return result;
+                    }).then(result => {
+                        switch(table){
+                            case 'users':
+                                result = {
+                                    fields: ['id', 'name'],
+                                    values: result.map(user => `${user.id}, '${user.name}'`)
+                                };
+                                break;
+                            case 'posts':
+                                result = {
+                                    fields: ['id', 'title', 'text', 'author'],
+                                    values: result.map(post => `${post.id}, '${post.title}', '${post.text}', ${post.author}`)
+                                };
+                                break;
+                            case 'comments':
+                                result = {
+                                    fields: ['id', 'text', 'author', 'post'],
+                                    values: result.map(comment => `${comment.id}, '${comment.text}', ${comment.author}, ${comment.post}`)
+                                };
+                                break;
+                        }
+
+                        return result;
+                    }).then(async result => {
+                        await this.query(`INSERT INTO ${table} (${result.fields.join(', ')}) VALUES (${result.values.join('),(')});`);
+                    }).catch(error => {
+                        throw new Error(error.message);
+                    });
+
+                    await DB.sleep(100);
+                }
+
+                if(id !== was && was)
+                    await this.open(was).catch(error => {
+                        throw new Error(error.message);
+                    });
+
+                resolve(true);
+            }catch(error){
+                if(id !== was && was)
+                    await this.open(was).catch(error => reject({ message: error.message }));
+
+                reject({ message: error.message });
+            }
         });
     }
 
     clear(id = this.id){
-        return new Promise((resolve, reject) => {
-            resolve(true);
+        return new Promise(async (resolve, reject) => {
+            let was = this.id;
+
+            try{
+                if(id !== was)
+                    await this.open(id).catch(error => {
+                        throw new Error(error.message);
+                    });
+
+                for(let table in schema){
+                    await this.query(`DELETE FROM ${table}; `).catch(error => {
+                        throw new Error(error.message);
+                    });
+                }
+
+                await this.query(`VACUUM;`).catch(error => {
+                    throw new Error(error.message);
+                });
+
+                if(id !== was && was)
+                    await this.open(was).catch(error => reject({ message: error.message }));
+
+                resolve(true);
+            }catch(error){
+                if(id !== was && was)
+                    await this.open(was).catch(error => reject({ message: error.message }));
+
+                reject({ message: error.message });
+            }
         });
     }
 
@@ -334,9 +466,9 @@ export default class DB {
         });
     }
 
-    query(sql){
+    query(sql, options = []){
         return new Promise((resolve, reject) => {
-            this.db.run(sql, [], async error => error ? reject({ message: error.message }) : resolve(true));
+            this.db.run(sql, options, async error => error ? reject({ message: error.message }) : resolve(true));
         });
     }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from "react-router";
 
-import Page from 'components/page';
-import Badge from 'components/badge';
+import Page from 'pages/page';
+
 import Message from 'components/message';
 import Form from 'components/form';
 
@@ -45,8 +45,6 @@ export default class Comment extends Page {
     }
 
     get form(){
-        return <></>;
-
         let inputs = [],
             buttons = [],
             onSubmit = null;

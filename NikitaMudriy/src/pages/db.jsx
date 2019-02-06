@@ -2,7 +2,8 @@ import React from 'react';
 import {Link} from "react-router";
 import ClassNames from 'classnames';
 
-import Page from 'components/page';
+import Page from 'pages/page';
+
 import Message from 'components/message';
 import Form from 'components/form';
 
@@ -44,7 +45,7 @@ export default class DB extends Page {
                 <a className="card-link btn btn-outline-primary" href="#" role="button" onClick={this.onInit}>Init</a>
                 <a className="card-link btn btn-outline-primary" href="#" role="button" onClick={this.onDrop}>Drop</a>
                 <a className="card-link btn btn-outline-primary" href="#" role="button" onClick={this.onFill}>Fill</a>
-                {/*<a className="card-link btn btn-outline-primary" href="#" role="button" onClick={this.onClear}>Clear</a>*/}
+                <a className="card-link btn btn-outline-primary" href="#" role="button" onClick={this.onClear}>Clear</a>
                 <a className="card-link btn btn-danger" href="#" role="button" onClick={this.onRemove}>Remove</a>
             </div>
         </div>;
