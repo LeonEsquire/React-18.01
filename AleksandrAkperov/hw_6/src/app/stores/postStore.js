@@ -21,7 +21,7 @@ class postStore extends EventEmitter {
 
     getPosts(posts) {
         this.posts = posts;
-
+        this.change();
     }
 
     addPost(post) {
