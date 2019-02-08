@@ -7,7 +7,7 @@ export default class PostItem extends React.Component {
       <div>
         <div className="card border-secondary mb-3">
           <h3 className="card-header">
-            <Link to="/">
+            <Link to={`/posts/${this.props.id}`}>
               {this.props.title}
             </Link>
           </h3>

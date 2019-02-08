@@ -9,6 +9,7 @@ import MainPage from './app/pages/Main';
 import Users from './app/pages/Users';
 import User from './app/pages/User';
 import Posts from './app/pages/Posts';
+import Post from './app/pages/Post'
 import PageNotFound from './app/pages/PageNotFound';
 
 
@@ -22,6 +23,7 @@ ReactDOM.render(
 				<Route exact path="/users" component={Users}/>
 				<Route path="/users/:userId" component={User}/> 
 				<Route exact path="/posts" component={Posts}/>
+				<Route path="/posts/:postId" component={Post}/>
 				<Route path="*" component={PageNotFound}/>
 			</Switch>
 		</Layout>
