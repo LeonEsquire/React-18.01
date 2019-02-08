@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-3';
 
+// {`nav-item ${this.props.active && 'active'}`}
 
 export default class MenuItem extends React.Component {
   render() {
