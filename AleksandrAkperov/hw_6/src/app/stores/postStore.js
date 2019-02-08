@@ -10,6 +10,7 @@ class postStore extends EventEmitter {
         this.getPosts = this.getPosts.bind(this);
         this.addPost = this.addPost.bind(this);
         this.change = this.change.bind(this);
+        this.handleActions = this.handleActions.bind(this);
     }
 
 
@@ -22,6 +23,7 @@ class postStore extends EventEmitter {
     getPosts(posts) {
         this.posts = posts;
         this.change();
+        console.log(this.posts);
     }
 
     addPost(post) {

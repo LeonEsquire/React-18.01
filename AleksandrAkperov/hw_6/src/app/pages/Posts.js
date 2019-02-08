@@ -20,12 +20,12 @@ export default class Posts extends React.Component {
 
     componentDidMount() {
         getPosts();
-        PostStore.on('on', this.onPostChange);
+        PostStore.on('change', this.onPostChange);
 
     }
 
     newPost (){
-        const body = 'Я написал эти строки, я молодец ';
+        const body = 'Flux не сложен, но дебажить его сложно.';
         const userId = 1;
         const title = 'Пост_1';
         addPost(title, userId, body);

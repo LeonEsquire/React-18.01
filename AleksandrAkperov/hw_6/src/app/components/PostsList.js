@@ -5,7 +5,7 @@ import PostItem from './PostItem'
 export default class  PostsList extends React.Component {
     render() {
         if (!this.props.posts){
-            return null;
+            return 'Нет постов';
         }
         const posts = this.props.posts.map((post, index) => {
             return <PostItem key={index} {...post} />
