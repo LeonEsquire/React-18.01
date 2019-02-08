@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-3';
+import {Link} from 'react-router-dom';
 
 export default class PostItem extends React.Component {
   render() {
@@ -7,7 +7,7 @@ export default class PostItem extends React.Component {
       <div>
         <div className="card border-secondary mb-3">
           <h3 className="card-header">
-            <Link to={`/users/${this.props.userId}`}>
+            <Link to="/">
               {this.props.title}
             </Link>
           </h3>
