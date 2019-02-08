@@ -8,8 +8,10 @@ class Post extends React.Component {
 
         this.state = {
             post: null
-        }
+        } 
+    }
 
+    componentDidMount() {
         axios.get(`https://jsonplaceholder.typicode.com/posts/${this.props.params.postId}`)
         .then(response => {
             this.setState({post: response.data})

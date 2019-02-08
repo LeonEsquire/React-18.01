@@ -9,7 +9,9 @@ class CommentList extends React.Component {
         this.state = {
             comments: []
         }
+    }
 
+    componentDidMount() {
         axios.get('https://jsonplaceholder.typicode.com/comments/')
             .then(response => {
                 this.setState({ comments: response.data })
