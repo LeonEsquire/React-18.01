@@ -19,15 +19,6 @@ export function getPosts() {
                 type: GET_POSTS,
                 data: response.data
             });
-        });
-}
-
-export function getUsers() {
-    axios.get('https://jsonplaceholder.typicode.com/users/')
-        .then(response => {
-            dispatcher.dispatch({
-                type: GET_USERS,
-                data: response.data
-            });
+            console.log('works');
         });
 }

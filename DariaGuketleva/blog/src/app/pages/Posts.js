@@ -8,17 +8,21 @@ export default class Posts extends React.Component {
         super(props);
         this.state={
             posts:[]
-        }
+        };
+        this.onPostChange = this.onPostChange.bind(this)
     }
 
     onPostChange(){
+
         this.setState({posts: PostStore.posts});
-        console.log('работает');
+        console.log('works');
 
     }
 
-    onComponentDidMount(){
+    componentDidMount(){
         getPosts();
+        console.log('работает');
+
         PostStore.on('change', this.onPostChange);
     }
 
@@ -38,7 +42,7 @@ export default class Posts extends React.Component {
                 <button className='btn btn-primary' onClick={this.newPost}>Добавить пост</button>
                 {
                     (!this.props.children) ?
-                        (<PostList/>)
+                        (<PostList posts={this.state.posts}/>)
                         :
                         (this.props.children)
                 }
