@@ -1,5 +1,5 @@
 import React from 'react';
-import CommentContent from '../components/Post';
+import CommentContent from '../components/Comment';
 import axios from 'axios';
 
 export default class Comment extends React.Component {
