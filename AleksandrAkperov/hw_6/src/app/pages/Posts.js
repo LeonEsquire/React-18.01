@@ -25,7 +25,7 @@ export default class Posts extends React.Component {
     }
 
     newPost (){
-        const body = 'Flux не сложен, но дебажить его сложно.';
+        const body = 'Flux не сложен, но дебажить его сложно. Сделан апгрейд store через стрелочные функции';
         const userId = 1;
         const title = 'Пост_1';
         addPost(title, userId, body);

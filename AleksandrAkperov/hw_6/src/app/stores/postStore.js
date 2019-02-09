@@ -7,43 +7,36 @@ class postStore extends EventEmitter {
     {
         super(...arguments);
         this.posts = [];
-        this.getPosts = this.getPosts.bind(this);
-        this.addPost = this.addPost.bind(this);
-        this.change = this.change.bind(this);
-        this.handleActions = this.handleActions.bind(this);
-    }
 
+        const change =()=>
+        {
+            this.emit('change');
+        };
 
-    change ()
-    {
-        this.emit('change');
-    }
+        const getPosts = (posts) => {
+            this.posts = posts;
+            change();
+            console.log(this.posts);
+        };
 
+        const addPost = (post) => {
+            this.posts = [post, ...this.posts];
+            change();
+        };
 
-    getPosts(posts) {
-        this.posts = posts;
-        this.change();
-        console.log(this.posts);
-    }
-
-    addPost(post) {
-        this.posts = [post, ...this.posts];
-        this.change();
-    }
-
-
-    handleActions(action) {
+        this.handleActions = (action) => {
         switch (action.type){
             case ADD_POST:
-                this.addPost(action.data);
-               break;
+                addPost(action.data);
+                break;
             case GET_POSTS:
-                this.getPosts(action.data);
+                getPosts(action.data);
                 break;
 
         }
-    }
+    };
 
+    };
 }
 
 const store = new postStore();
