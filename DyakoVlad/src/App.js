@@ -1,47 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Router, Route, IndexRoute, browserHistory, hashHistory} from 'react-router';
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {value: ''};
+import Layout from './app/layouts/Layout';
+import MainPage from './app/pages/Main';
+import Users from './app/pages/Users';
+import User from './app/pages/User';
+import Comments from './app/pages/Comments';
+import Comment from './app/pages/Comment';
+import Posts from './app/pages/Posts';
+import Post from './app/pages/Post';
+import PageNotFound from './app/pages/PageNotFound';
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
 
-    handleChange(event) {
-        this.setState({value: event.target.value});
-    }
+const app = document.querySelector('#root');
 
-    handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
-        event.preventDefault();
-    }
-
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    <h1>Name:</h1><br/>
-                    <input type="text" value={this.state.value} onChange={this.handleChange} /><br/>
-                </label><br/>
-                <input class="btn btn-primary" type="submit" value="Submit" />
-            </form>
-        );
-    }
-}
-
-class Developer {
-    constructor(name = String, age = Number, dateOfBirth = Date) {
-        this.name = name;
-        this.age = age;
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    displayInfo() {
-        return `${this.name}, ${this.age}, ${this.dateOfBirth}`
-    }
-}
-
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(
+    <Router history={browserHistory}>
+        <Route path="/" component={Layout}>
+            <IndexRoute component={MainPage}/>
+            <Route path="users" component={Users}>
+                <Route path=":userId" component={User}/>
+            </Route>
+            <Route path="posts" component={Posts}>
+                <Route path=":postId" component={Post}/>
+            </Route>
+            <Route path="comments" component={Comments}>
+                <Route path=":commentId" component={Comment}/>
+            </Route>
+            <Route path="*" component={PageNotFound}/>
+        </Route>
+    </Router>,
+    app);

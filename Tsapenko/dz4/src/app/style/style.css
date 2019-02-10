@@ -1,0 +1,66 @@
+html{
+    padding: 50px;
+}
+.modalTextStyle h4{
+    color:red;
+    font-size: 24px;
+    text-align: center;
+}
+.modalTextStyle p{
+    margin: 0 auto;
+    width: 50%;
+    font-size: 18px;
+    text-align: center;
+}
+.modalButtonStyle{
+    width: 100px;
+    height: 30px;
+    color: aliceblue;
+    position: absolute;
+    margin-top: 100px;
+    background-color: darkcyan;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.modalButtonStyle:hover{
+    background-color: teal;
+}
+h1{
+    font-size: 25px;
+    color: darkblue;
+    text-align: center;
+}
+h3{
+    margin-top: 50px;
+    padding: 25px;
+    color: white;
+    text-align: center;
+    background-color: rgb(163, 177, 182);
+}
+.themeStyle{
+    text-align: center;
+}
+.messageStyle{
+    text-align: center;
+}
+input[type="text"]{
+    margin-top: 20px;
+    width: 50%;
+    height: 30px;
+}
+textarea{
+    margin-top: 20px;
+    width: 50%;
+    border-radius: 5px;
+}
+.messageStyle button{
+    width: 100px;
+    height: 30px;
+    background-color: darkgreen;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.messageStyle button:hover{
+    background-color: green;
+}
