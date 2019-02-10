@@ -3,7 +3,6 @@ import React from 'react';
 
 class Post extends React.Component {
     render() {
-        console.log(this.props);
         return (
             <div className='mb-5'>
                 <a href={this.props.href}>{this.props.title}</a>
