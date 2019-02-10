@@ -1,19 +1,13 @@
 import React from 'react';
-import axios from 'axios';
 import User from './User';
 
 export default class UsersList extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      users: []
+      this.state = {
+      users: this.props.users
     };
-    
-    axios.get('https://jsonplaceholder.typicode.com/users/')
-    .then(response => {
-      this.setState({users: response.data})
-    });
+
   }
 
   render() {

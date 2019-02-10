@@ -1,8 +1,11 @@
 import React from 'react';
 import Menu from '../components/Menu';
 import MenuItem from '../components/MenuItem';
+import {connect} from 'react-redux';
+import {fetchUser} from '../actions/userActions';
+import {fetchUsers} from '../actions/usersActions';
 
-export default class Layout extends React.Component {
+class Layout extends React.Component {
     constructor(props) {
         super(props);
         this.brand = 'React blog!';
@@ -10,6 +13,10 @@ export default class Layout extends React.Component {
 
     isActive(href) {
         return window.location.pathname === href;
+    }
+
+    componentDidMount() {
+        this.props.dispatch(fetchUsers());
     }
 
     render() {
@@ -21,12 +28,6 @@ export default class Layout extends React.Component {
                     </MenuItem>
                     <MenuItem href="/users" active={this.isActive('/users')}>
                         Пользователи
-                    </MenuItem>
-                    <MenuItem href="/posts" active={this.isActive('/posts')}>
-                        Посты
-                    </MenuItem>
-                    <MenuItem href="/comments" active={this.isActive('/comments')}>
-                        Комменты
                     </MenuItem>
                 </Menu>
                 <div className="container">
@@ -43,3 +44,13 @@ export default class Layout extends React.Component {
         );
     }
 }
+
+function mapStateToProps (state) {
+    return {
+        // user: state.user.user,
+        // userFetched: state.user.fetched,
+        users: state.users.users
+    };
+}
+
+export default connect(mapStateToProps)(Layout);

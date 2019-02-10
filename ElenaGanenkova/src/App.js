@@ -4,39 +4,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Router, Route, IndexRoute, browserHistory, hashHistory} from 'react-router';
 
 import Layout from './app/layouts/Layout';
-// import MainPage from './app/components/Main';
-// import About from './app/components/About';
-// import Contacts from './app/components/Contacts';
-// import PageNotFound from './app/components/PageNotFound';
+
 
 import MainPage from './app/pages/Main';
 import Users from './app/pages/Users';
 import User from './app/pages/User';
 import PageNotFound from './app/pages/PageNotFound';
-import Posts from './app/pages/Posts';
-import Post from './app/pages/Post';
-import Comments from './app/pages/Comments';
-import Comment from './app/pages/SingleComment';
+
+import {Provider} from 'react-redux';
+import store from './store';
 
 
 
 const app = document.querySelector('#root');
 
 // localhost:8000/about
-ReactDOM.render(
+ReactDOM.render(<Provider store={store}>
 	<Router history={browserHistory}>
 		<Route path="/" component={Layout}>
 			<IndexRoute component={MainPage}/>
 			<Route path="users" component={Users}>
-				<Route path=":userId" component={User}/>
+				{/*<Route path=":userId" component={User}/>*/}
 			</Route>
-            <Route path="posts" component={Posts}>
-                <Route path=":postId" component={Post}/>
-            </Route>
-            <Route path="comments" component={Comments}>
-                <Route path=":commentId" component={Comment}/>
-            </Route>
 			<Route path="*" component={PageNotFound}/>
 		</Route>
-	</Router>,
+	</Router></Provider>,
 app);

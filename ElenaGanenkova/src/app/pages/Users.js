@@ -1,17 +1,38 @@
 import React from 'react';
 import UsersList from '../components/UsersList';
+import {connect} from 'react-redux';
+import {fetchUsers} from '../actions/usersActions';
 
-export default class Users extends React.Component {
-  render() {
-    return (
-      <div>
-        {
-          (!this.props.children) ?
-          (<UsersList/>)
-          :
-          (this.props.children)
+class Users extends React.Component {
+    componentDidMount() {
+        this.props.dispatch(fetchUsers());
+    }
+
+    render() {
+        console.log('this users in Users component');
+        console.log(this.props);
+
+        if (this.props.users.length > 0) {
+            return (
+                <div>
+                    {
+                        <UsersList users={this.props.users}/>
+                    }
+                </div>
+            );
+        } else {
+            return <div></div>
         }
-      </div>
-    );
-  }
+
+    }
 }
+
+function mapStateToProps(state) {
+    return {
+        // user: state.user.user,
+        // userFetched: state.user.fetched,
+        users: state.users.users
+    };
+}
+
+export default connect(mapStateToProps)(Users);
