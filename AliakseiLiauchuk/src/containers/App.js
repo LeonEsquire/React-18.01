@@ -12,8 +12,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const { dispatch, selectedSubreddit } = this.props
-    dispatch(fetchUsersIfNeeded(selectedSubreddit))
+    const { dispatch } = this.props
+    dispatch(fetchUsersIfNeeded())
   }
 
   render() {

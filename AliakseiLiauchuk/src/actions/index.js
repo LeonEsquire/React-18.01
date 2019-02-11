@@ -28,8 +28,8 @@ const shouldFetchUsers = (state, subreddit) => {
   return users.didInvalidate
 }
 
-export const fetchUsersIfNeeded = subreddit => (dispatch, getState) => {
-  if (shouldFetchUsers(getState(), subreddit)) {
-    return dispatch(fetchUsers(subreddit))
+export const fetchUsersIfNeeded = () => (dispatch, getState) => {
+  if (shouldFetchUsers(getState(), '')) {
+    return dispatch(fetchUsers())
   }
 }
