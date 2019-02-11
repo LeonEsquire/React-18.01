@@ -1,17 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route, IndexRoute, browserHistory} from "react-router";
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Provider} from 'react-redux';
+
+import store from './store';
 
 import {default as Layout} from 'layouts/default';
 
+import DBsView from 'views/dbs-view';
+import UsersView from 'views/users-view';
+import PostsView from 'views/posts-view';
+import CommentsView from 'views/comments-view';
+/*
 import DB from 'pages/db';
 import Post from 'pages/post';
 import Comment from 'pages/comment';
 import User from 'pages/user';
-import Empty from 'pages/empty';
-
+*/
 const menu = [{
-    id: 'home',
+    id: 'index',
     path: '/',
     title: 'Главная'
 }, {
@@ -19,42 +26,47 @@ const menu = [{
     path: '/posts',
     title: 'Посты'
 }, {
-    id: 'Comments',
+    id: 'comments',
     path: '/comments',
     title: 'Комментарии'
 }, {
-    id: 'Users',
+    id: 'users',
     path: '/users',
     title: 'Пользователи'
 }];
 
-let indexRoute = <>
-        <p className="lead my-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cumque deserunt dolore eaque esse eveniet illo laboriosam laborum laudantium maiores natus nesciunt qui, quia ratione sequi tempore velit veniam? Facere.</p>
-        <DB />
-    </>,
-    noRoute = <p className="lead my-4">Error 404 <small className="text-muted">page not found</small></p>;
+ReactDOM.render(<Provider store={store}>
+    <BrowserRouter>
+        <Layout course='ReactJS' task='Домашнее задание 7' menu={menu}>
+            <Switch>
+                <Route exact path='/'>
+                    <>
+                        <p className="lead my-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cumque deserunt dolore eaque esse eveniet illo laboriosam laborum laudantium maiores natus nesciunt qui, quia ratione sequi tempore velit veniam? Facere.</p>
+                        <DBsView />
+                    </>
+                </Route>
 
-ReactDOM.render(<Router history={browserHistory}>
-    <Route path='/' component={(props) => <Layout {...props} course='ReactJS' task='Домашнее задание 5' menu={menu} />}>
-        <IndexRoute components={(props) => <Empty {...props}>{indexRoute}</Empty>} />
+                <Route path='/dbs/:db' component={(props) => <DBsView {...props} />} />
+                <Route path='/dbs' component={(props) => <DBsView {...props} />} />
 
-        <Route path='dbs' component={(props) => <DB {...props}/>} />
-        <Route path='dbs/:db' component={(props) => <DB {...props}/>} />
+                <Route path='/users/:user/comments' component={(props) => <UsersView {...props}><CommentsView /></UsersView>} />
+                <Route path='/users/:user/posts' component={(props) => <UsersView {...props}><PostsView /></UsersView>} />
+                <Route path='/users/:user' component={(props) => <UsersView {...props} />} />
+                <Route path='/users' component={(props) => <UsersView {...props} />} />
 
-        <Route path='posts' component={(props) => <Post {...props}/>} />
-        <Route path='posts/:post' component={(props) => <Post {...props}/>}>
-            <Route path='comments' component={Comment} />
-        </Route>
+                <Route path='/posts/:post/comments' component={(props) => <PostsView {...props}><CommentsView {...props} /></PostsView>} />
+                <Route path='/posts/:post' component={(props) => <PostsView {...props} />} />
+                <Route path='/posts' component={(props) => <PostsView {...props} />} />
 
-        <Route path='comments' component={(props) => <Comment {...props}/>} />
-        <Route path='comments/:comment' component={(props) => <Comment {...props}/>} />
+                <Route path='/comments/:comment' component={(props) => <CommentsView {...props} />} />
+                <Route path='/comments' component={(props) => <CommentsView {...props} />} />
 
-        <Route path='users' component={(props) => <User {...props}/>} />
-        <Route path='users/:user' component={(props) => <User {...props}/>}>
-            <Route path='posts' component={Post} />
-            <Route path='comments' component={Comment} />
-        </Route>
-
-        <Route path='*' component={(props) => <Empty {...props}>{noRoute}</Empty>} />
-    </Route>
-</Router>, document.getElementById('app'));
+                <Route>
+                    <>
+                        <p className="lead my-4">Error 404 <small className="text-muted">page not found</small></p>
+                    </>
+                </Route>
+            </Switch>
+        </Layout>
+    </BrowserRouter>
+</Provider>, document.getElementById('app'));

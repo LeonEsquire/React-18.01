@@ -12,15 +12,17 @@ export default class DBs extends Service {
         };
     }
 
-    async create(options){
+    async add(options){
         let filtered = this.constructor.filter(options);
 
         if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
+        await this.dataProvider.create(filtered.id);
+
         return {
             status: 200,
-            data: await this.dataProvider.create(filtered.id)
+            data: await this.dataProvider.get(filtered.id)
         };
     }
 
@@ -30,21 +32,25 @@ export default class DBs extends Service {
         if(!options.oldId || !options.newId)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
+        await this.dataProvider.rename(options.oldId, options.newId);
+
         return {
             status: 200,
-            data: await this.dataProvider.rename(options.oldId, options.newId)
+            data: await this.dataProvider.get(options.newId)
         };
     }
 
-    async remove(options){
+    async delete(options){
         let filtered = this.constructor.filter(options);
 
         if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
+        await this.dataProvider.remove(filtered.id);
+
         return {
             status: 200,
-            data: await this.dataProvider.remove(filtered.id)
+            data: { id: filtered.id }
         };
     }
 
@@ -54,9 +60,11 @@ export default class DBs extends Service {
         if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
+        let exists = await this.dataProvider.exists(filtered.id);
+
         return {
             status: 200,
-            data: await this.dataProvider.exists(filtered.id)
+            data: exists ? await this.dataProvider.get(filtered.id) : exists
         };
     }
 
@@ -66,18 +74,22 @@ export default class DBs extends Service {
         if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
+        await this.dataProvider.open(filtered.id);
+
         return {
             status: 200,
-            data: await this.dataProvider.open(filtered.id)
+            data: await this.dataProvider.get(filtered.id)
         };
     }
 
     async close(options){
         let filtered = this.constructor.filter(options);
 
+        let close = await this.dataProvider.close(filtered.id ? filtered.id : null);
+
         return {
             status: 200,
-            data: await this.dataProvider.close(filtered.id ? filtered.id : null)
+            data: filtered.id ? await this.dataProvider.get(filtered.id) : close
         };
     }
 
@@ -87,9 +99,11 @@ export default class DBs extends Service {
         if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
+        await this.dataProvider.init(filtered.id);
+
         return {
             status: 200,
-            data: await this.dataProvider.init(filtered.id)
+            data: await this.dataProvider.get(filtered.id)
         };
     }
 
@@ -99,9 +113,11 @@ export default class DBs extends Service {
         if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
+        await this.dataProvider.drop(filtered.id);
+
         return {
             status: 200,
-            data: await this.dataProvider.drop(filtered.id)
+            data: await this.dataProvider.get(filtered.id)
         };
     }
 
@@ -111,9 +127,11 @@ export default class DBs extends Service {
         if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
+        await this.dataProvider.fill(filtered.id);
+
         return {
             status: 200,
-            data: await this.dataProvider.fill(filtered.id)
+            data: await this.dataProvider.get(filtered.id)
         };
     }
 
@@ -123,9 +141,11 @@ export default class DBs extends Service {
         if(!filtered.id)
             throw new ServiceError(500, `Wrong parameters.`, options);
 
+        await this.dataProvider.clear(filtered.id);
+
         return {
             status: 200,
-            data: await this.dataProvider.clear(filtered.id)
+            data: await this.dataProvider.get(filtered.id)
         };
     }
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from "react-router";
+import {NavLink} from "react-router-dom";
 import ClassNames from "classnames";
 
 import 'bootstrap/scss/bootstrap.scss';
@@ -24,10 +24,9 @@ export default class Default extends Component {
                     <ul className="nav nav-pills">
                         {this.props.menu.map((item, i) => {
                             return <li key={i} className="nav-item">
-                                <Link className={ClassNames('nav-link', {
-                                    'active': new RegExp(`^${item.path}/?$`, 'i').test(this.props.location.pathname),
+                                <NavLink exact className={ClassNames('nav-link', {
                                     'disabled': item.disabled
-                                })} to={item.path}>{item.title}</Link>
+                                })} activeClassName='active' to={item.path}>{item.title}</NavLink>
                             </li>;
                         })}
                     </ul>

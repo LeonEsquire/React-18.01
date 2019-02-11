@@ -13,49 +13,44 @@ const PORT = process.env.PORT || 3000,
       PATH = '/',
       ENDPOINTS = {
         dbs: [
-            {id: 'get', path: '[/]?', method: 'get'},
-            {id: 'get', path: '.:method(exists|open|close|init|drop|fill|clear)', method: 'get'},
-            {id: 'create', path: '[/]?', method: 'post'},
-            {id: 'edit', path: '[/]?', method: 'put'},
-            {id: 'remove', path: '[/]?', method: 'delete'},
+            {id: 'get', path: ['[/]?', '.:method(exists|open|close|init|drop|fill|clear)'], method: 'get'},
+            {id: 'add', path: ['[/]?'], method: 'post'},
+            {id: 'edit', path: ['[/]?'], method: 'put'},
+            {id: 'delete', path: ['[/]?'], method: 'delete'},
 
-            {id: 'get', path: '/:id', method: 'get'},
-            {id: 'get', path: '/:id.:method(exists|open|close|init|drop|fill|clear)', method: 'get'},
-            {id: 'edit', path: '/:id', method: 'put'},
-            {id: 'remove', path: '/:id', method: 'delete'}
+            {id: 'get', path: ['/:id', '/:id.:method(exists|open|close|init|drop|fill|clear)'], method: 'get'},
+            {id: 'edit', path: ['/:id'], method: 'put'},
+            {id: 'delete', path: ['/:id'], method: 'delete'}
         ],
         users: [
-            {id: 'get', path: '[/]?', method: 'get'},
-            {id: 'get', path: '.:method(login|logout)', method: 'get'},
-            {id: 'create', path: '[/]?', method: 'post'},
-            {id: 'create', path: '.:method(register)', method: 'post'},
-            {id: 'edit', path: '[/]?', method: 'put'},
-            {id: 'remove', path: '[/]?', method: 'delete'},
+            {id: 'get', path: ['[/]?', '.:method(login|logout)'], method: 'get'},
+            {id: 'add', path: ['[/]?', '.:method(register)'], method: 'post'},
+            {id: 'edit', path: ['[/]?'], method: 'put'},
+            {id: 'delete', path: ['[/]?'], method: 'delete'},
 
-            {id: 'get', path: '/:id', method: 'get'},
-            {id: 'get', path: '/:id.:method(login|logout)', method: 'get'},
-            {id: 'edit', path: '/:id', method: 'put'},
-            {id: 'remove', path: '/:id', method: 'delete'}
+            {id: 'get', path: ['/:id', '/:id.:method(login|logout)'], method: 'get'},
+            {id: 'edit', path: ['/:id'], method: 'put'},
+            {id: 'delete', path: ['/:id'], method: 'delete'}
         ],
         posts: [
-            {id: 'get', path: '[/]?', method: 'get'},
-            {id: 'create', path: '[/]?', method: 'post'},
-            {id: 'edit', path: '[/]?', method: 'put'},
-            {id: 'remove', path: '[/]?', method: 'delete'},
+            {id: 'get', path: ['[/]?'], method: 'get'},
+            {id: 'add', path: ['[/]?'], method: 'post'},
+            {id: 'edit', path: ['[/]?'], method: 'put'},
+            {id: 'delete', path: ['[/]?'], method: 'delete'},
 
-            {id: 'get', path: '/:id', method: 'get'},
-            {id: 'edit', path: '/:id', method: 'put'},
-            {id: 'remove', path: '/:id', method: 'delete'}
+            {id: 'get', path: ['/:id'], method: 'get'},
+            {id: 'edit', path: ['/:id'], method: 'put'},
+            {id: 'delete', path: ['/:id'], method: 'delete'}
         ],
         comments: [
-            {id: 'get', path: '[/]?', method: 'get'},
-            {id: 'create', path: '[/]?', method: 'post'},
-            {id: 'edit', path: '[/]?', method: 'put'},
-            {id: 'remove', path: '[/]?', method: 'delete'},
+            {id: 'get', path: ['[/]?'], method: 'get'},
+            {id: 'add', path: ['[/]?'], method: 'post'},
+            {id: 'edit', path: ['[/]?'], method: 'put'},
+            {id: 'delete', path: ['[/]?'], method: 'delete'},
 
-            {id: 'get', path: '/:id', method: 'get'},
-            {id: 'edit', path: '/:id', method: 'put'},
-            {id: 'remove', path: '/:id', method: 'delete'}
+            {id: 'get', path: ['/:id'], method: 'get'},
+            {id: 'edit', path: ['/:id'], method: 'put'},
+            {id: 'delete', path: ['/:id'], method: 'delete'}
         ]
       },
       server = express(),

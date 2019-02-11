@@ -15,7 +15,11 @@ export default {
         alias: {
             layouts: path.resolve(__dirname, '../src/layouts'),
             pages: path.resolve(__dirname, '../src/pages'),
-            components: path.resolve(__dirname, '../src/components')
+            components: path.resolve(__dirname, '../src/components'),
+
+            actions: path.resolve(__dirname, '../src/actions'),
+            reducers: path.resolve(__dirname, '../src/reducers'),
+            views: path.resolve(__dirname, '../src/views')
         },
         extensions: ['*', '.js', '.jsx']
     },

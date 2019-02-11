@@ -28,6 +28,12 @@ export default class DB {
         return !!(id && this.id && id === this.id && this.db);
     }
 
+    exists(id){
+        return new Promise((resolve, reject) => {
+            fs.access(`${this.path}/${id}.${DB.EXTENSION}`, error => error && error.code !== 'ENOENT' ? reject({ message: error.message }) : resolve(!error));
+        });
+    }
+
     get(id = this.id){
         return new Promise((resolve, reject) => {
             if(id){
@@ -47,12 +53,6 @@ export default class DB {
                     } : null;
                 }).filter(file => !!file)));
             }
-        });
-    }
-
-    exists(id){
-        return new Promise((resolve, reject) => {
-            fs.access(`${this.path}/${id}.${DB.EXTENSION}`, error => error && error.code !== 'ENOENT' ? reject({ message: error.message }) : resolve(!error));
         });
     }
 
@@ -450,25 +450,37 @@ export default class DB {
         return new Promise((resolve, reject) => {
             let keys = Object.keys(values);
 
-            this.db.run(`INSERT INTO ${table} (${keys.join(', ')}) VALUES (${keys.map(key => `'${values[key]}'`).join(', ')});`, [], error => error ? reject({ message: error.message }) : resolve(true));
+            this.db.run(`INSERT INTO ${table} (${keys.join(', ')}) VALUES (${keys.map(key => `'${values[key]}'`).join(', ')});`, [], function(error){
+                console.log('insert', this);
+                error ? reject({ message: error.message }) : resolve(true);
+            });
         });
     }
 
     update(table, values, filter = null){
         return new Promise((resolve, reject) => {
-            this.db.run(`UPDATE ${table} SET ${Object.keys(values).map(key => `${key} = '${values[key]}'`).join(', ')}${filter ? ` WHERE ${Object.keys(filter).map(key => `${key}="${filter[key]}"`).join(' AND ')}` : ''};`, [], error => error ? reject({ message: error.message }) : resolve(true));
+            this.db.run(`UPDATE ${table} SET ${Object.keys(values).map(key => `${key} = '${values[key]}'`).join(', ')}${filter ? ` WHERE ${Object.keys(filter).map(key => `${key}="${filter[key]}"`).join(' AND ')}` : ''};`, [], function(error){
+                console.log('update', this);
+                error ? reject({ message: error.message }) : resolve(true);
+            });
         });
     }
 
     delete(table, filter = null){
         return new Promise((resolve, reject) => {
-            this.db.run(`DELETE FROM ${table}${filter ? ` WHERE ${Object.keys(filter).map(key => `${key}="${filter[key]}"`).join(' AND ')}` : ''};`, [], error => error ? reject({ message: error.message }) : resolve(true));
+            this.db.run(`DELETE FROM ${table}${filter ? ` WHERE ${Object.keys(filter).map(key => `${key}="${filter[key]}"`).join(' AND ')}` : ''};`, [], function(error){
+                console.log('delete', this);
+                error ? reject({ message: error.message }) : resolve(true);
+            });
         });
     }
 
     query(sql, options = []){
         return new Promise((resolve, reject) => {
-            this.db.run(sql, options, async error => error ? reject({ message: error.message }) : resolve(true));
+            this.db.run(sql, options, function(error){
+                console.log('query', this);
+                error ? reject({ message: error.message }) : resolve(true);
+            });
         });
     }
 

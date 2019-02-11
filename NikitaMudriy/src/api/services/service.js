@@ -28,12 +28,14 @@ export default class Service {
         };
     }
 
-    async create(options){
+    async add(options){
         let filtered = this.constructor.filter(options);
+
+        await this.dataProvider.insert(this.constructor.resource, filtered);
 
         return {
             status: 200,
-            data: await this.dataProvider.insert(this.constructor.resource, filtered)
+            data: await this.dataProvider.first(this.constructor.resource, { id: filtered.id })
         };
     }
 
@@ -51,7 +53,7 @@ export default class Service {
         };
     }
 
-    async remove(options){
+    async delete(options){
         let filtered = this.constructor.filter(options);
 
         if(!filtered.id)
