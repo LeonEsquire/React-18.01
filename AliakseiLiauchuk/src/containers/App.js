@@ -33,17 +33,14 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  const { selectedSubreddit, usersBySubreddit } = state
-  const {
-    isFetching,
-    items: users
-  } = usersBySubreddit[selectedSubreddit] || {
+  const { usersBySubreddit } = state
+  const {isFetching, items: users} = usersBySubreddit[undefined] || {
     isFetching: true,
     items: []
   }
 
   return {
-    selectedSubreddit,
+    undefined,
     users,
     isFetching,
   }

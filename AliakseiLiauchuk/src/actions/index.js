@@ -17,19 +17,6 @@ const fetchUsers = () => dispatch => {
     .then(json => dispatch(receiveUsers(json)))
 }
 
-const shouldFetchUsers = (state, subreddit) => {
-  const users = state.usersBySubreddit[subreddit]
-  if (!users) {
-    return true
-  }
-  if (users.isFetching) {
-    return false
-  }
-  return users.didInvalidate
-}
-
-export const fetchUsersIfNeeded = () => (dispatch, getState) => {
-  if (shouldFetchUsers(getState(), '')) {
+export const fetchUsersIfNeeded = () => (dispatch) => {
     return dispatch(fetchUsers())
-  }
 }
