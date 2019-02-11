@@ -7,7 +7,6 @@ import Users from '../components/Users'
 class App extends Component {
   static propTypes = {
     users: PropTypes.array.isRequired,
-    isFetching: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
@@ -17,7 +16,7 @@ class App extends Component {
   }
 
   render() {
-    const { users, isFetching, } = this.props
+    const { users } = this.props
     return (<>
               <Users users={users} />
             </>
@@ -27,15 +26,13 @@ class App extends Component {
 
 const mapStateToProps = state => {
   const { usersBySubreddit } = state
-  const {isFetching, items: users} = usersBySubreddit[undefined] || {
-    isFetching: true,
+  const {items: users} = usersBySubreddit[undefined] || {
     items: []
   }
 
   return {
     undefined,
     users,
-    isFetching,
   }
 }
 
