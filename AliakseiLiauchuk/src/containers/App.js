@@ -23,7 +23,7 @@ class App extends Component {
       <div>
         {isEmpty
           ? (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-          : <div style={{ opacity: isFetching ? 0.5 : 1 }}>
+          : <div>
               <Users users={users} />
             </div>
         }
