@@ -21,10 +21,9 @@ class App extends Component {
 
 const mapStateToProps = state => {
   const { usersAll } = state
-  const { items: users } = usersAll
 
   return {
-    users
+    users: usersAll.items
   }
 }
 
