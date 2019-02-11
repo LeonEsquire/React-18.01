@@ -1,13 +1,10 @@
 import { combineReducers } from 'redux'
 import {
-  SELECT_SUBREDDIT, INVALIDATE_SUBREDDIT,
   REQUEST_USERS, RECEIVE_USERS
 } from '../actions'
 
 const selectedSubreddit = (state = 'reactjs', action) => {
   switch (action.type) {
-    case SELECT_SUBREDDIT:
-      return action.subreddit
     default:
       return state
   }
@@ -19,11 +16,6 @@ const users = (state = {
   items: []
 }, action) => {
   switch (action.type) {
-    case INVALIDATE_SUBREDDIT:
-      return {
-        ...state,
-        didInvalidate: true
-      }
     case REQUEST_USERS:
       return {
         ...state,
@@ -45,7 +37,6 @@ const users = (state = {
 
 const usersBySubreddit = (state = { }, action) => {
   switch (action.type) {
-    case INVALIDATE_SUBREDDIT:
     case RECEIVE_USERS:
     case REQUEST_USERS:
       return {
