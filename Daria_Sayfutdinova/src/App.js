@@ -1,31 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import store from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Layout from './app/components/Layout';
 import {Router, Route, IndexRoute, browserHistory, hashHistory} from 'react-router';
 
-import Layout from './app/layouts/Layout';
-// import MainPage from './app/components/Main';
-// import About from './app/components/About';
-// import Contacts from './app/components/Contacts';
-// import PageNotFound from './app/components/PageNotFound';
-
 import MainPage from './app/pages/Main';
-import Users from './app/pages/Users';
+import UsersList from './app/pages/UsersPage';
 import User from './app/pages/User';
 import PageNotFound from './app/pages/PageNotFound';
 
+const root = document.getElementById('root');
 
-const app = document.querySelector('#root');
-
-// localhost:8000/about
-ReactDOM.render(
+ReactDOM.render(<Provider store={store}>
 	<Router history={browserHistory}>
 		<Route path="/" component={Layout}>
 			<IndexRoute component={MainPage}/>
-			<Route path="users" component={Users}>
+			<Route path="users" component={UsersList}>
 				<Route path=":userId" component={User}/>
 			</Route>
 			<Route path="*" component={PageNotFound}/>
 		</Route>
-	</Router>,
-app);
+	</Router>
+</Provider>, root);
