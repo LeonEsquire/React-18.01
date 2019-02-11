@@ -38,7 +38,7 @@ class App extends Component {
   }
 
   render() {
-    const { selectedSubreddit, users, isFetching, lastUpdated } = this.props
+    const { users, isFetching, } = this.props
     const isEmpty = users.length === 0
     return (
       <div>
@@ -57,7 +57,6 @@ const mapStateToProps = state => {
   const { selectedSubreddit, usersBySubreddit } = state
   const {
     isFetching,
-    lastUpdated,
     items: users
   } = usersBySubreddit[selectedSubreddit] || {
     isFetching: true,
@@ -68,7 +67,6 @@ const mapStateToProps = state => {
     selectedSubreddit,
     users,
     isFetching,
-    lastUpdated
   }
 }
 
