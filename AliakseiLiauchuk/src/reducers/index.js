@@ -2,9 +2,7 @@ import { combineReducers } from 'redux'
 import { RECEIVE_USERS } from '../actions'
 
 
-let users = (state = {
-  items: []
-}, action) => {
+let users = (state = { items: []}, action) => {
   switch (action.type) {
     case RECEIVE_USERS:
       return {

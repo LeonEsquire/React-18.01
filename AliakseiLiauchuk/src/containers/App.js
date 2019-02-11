@@ -26,13 +26,10 @@ class App extends Component {
 
 const mapStateToProps = state => {
   const { usersBySubreddit } = state
-  const {items: users} = usersBySubreddit[undefined] || {
-    items: []
-  }
+  const { items: users } = usersBySubreddit[undefined] || { items: [] }
 
   return {
-    undefined,
-    users,
+    users
   }
 }
 
