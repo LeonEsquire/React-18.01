@@ -6,7 +6,6 @@ import Users from '../components/Users'
 
 class App extends Component {
   static propTypes = {
-    selectedSubreddit: PropTypes.string.isRequired,
     users: PropTypes.array.isRequired,
     isFetching: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired

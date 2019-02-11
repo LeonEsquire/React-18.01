@@ -22,7 +22,6 @@ let users = (state = {
         isFetching: false,
         didInvalidate: false,
         items: action.users,
-        lastUpdated: action.receivedAt
       }
     default:
       return state
