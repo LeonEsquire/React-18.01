@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectSubreddit, fetchPostsIfNeeded, invalidateSubreddit } from '../actions'
+import { selectSubreddit, fetchUsersIfNeeded, invalidateSubreddit } from '../actions'
 import Users from '../components/Users'
 
 class App extends Component {
@@ -15,13 +15,13 @@ class App extends Component {
 
   componentDidMount() {
     const { dispatch, selectedSubreddit } = this.props
-    dispatch(fetchPostsIfNeeded(selectedSubreddit))
+    dispatch(fetchUsersIfNeeded(selectedSubreddit))
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.selectedSubreddit !== this.props.selectedSubreddit) {
       const { dispatch, selectedSubreddit } = this.props
-      dispatch(fetchPostsIfNeeded(selectedSubreddit))
+      dispatch(fetchUsersIfNeeded(selectedSubreddit))
     }
   }
 
@@ -34,7 +34,7 @@ class App extends Component {
 
     const { dispatch, selectedSubreddit } = this.props
     dispatch(invalidateSubreddit(selectedSubreddit))
-    dispatch(fetchPostsIfNeeded(selectedSubreddit))
+    dispatch(fetchUsersIfNeeded(selectedSubreddit))
   }
 
   render() {
@@ -54,12 +54,12 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  const { selectedSubreddit, postsBySubreddit } = state
+  const { selectedSubreddit, usersBySubreddit } = state
   const {
     isFetching,
     lastUpdated,
     items: users
-  } = postsBySubreddit[selectedSubreddit] || {
+  } = usersBySubreddit[selectedSubreddit] || {
     isFetching: true,
     items: []
   }

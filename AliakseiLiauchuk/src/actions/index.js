@@ -13,40 +13,38 @@ export const invalidateSubreddit = subreddit => ({
   subreddit
 })
 
-export const requestPosts = subreddit => ({
+export const requestUsers = subreddit => ({
   type: REQUEST_USERS,
   subreddit
 })
 
-export const receivePosts = (subreddit, json) => ({
+export const receiveUsers = (subreddit, json) => ({
   type: RECEIVE_USERS,
   subreddit,
-  posts: json,
+  users: json,
   receivedAt: Date.now()
 })
 
-const fetchPosts = subreddit => dispatch => {
-  dispatch(requestPosts(subreddit))
+const fetchUsers = subreddit => dispatch => {
+  dispatch(requestUsers(subreddit))
   return fetch(`https://jsonplaceholder.typicode.com/users`)
     .then(response => response.json())
-    .then(json => {
-      dispatch(receivePosts(subreddit, json))
-    })
+    .then(json => dispatch(receiveUsers(subreddit, json)))
 }
 
-const shouldFetchPosts = (state, subreddit) => {
-  const posts = state.postsBySubreddit[subreddit]
-  if (!posts) {
+const shouldFetchUsers = (state, subreddit) => {
+  const users = state.usersBySubreddit[subreddit]
+  if (!users) {
     return true
   }
-  if (posts.isFetching) {
+  if (users.isFetching) {
     return false
   }
-  return posts.didInvalidate
+  return users.didInvalidate
 }
 
-export const fetchPostsIfNeeded = subreddit => (dispatch, getState) => {
-  if (shouldFetchPosts(getState(), subreddit)) {
-    return dispatch(fetchPosts(subreddit))
+export const fetchUsersIfNeeded = subreddit => (dispatch, getState) => {
+  if (shouldFetchUsers(getState(), subreddit)) {
+    return dispatch(fetchUsers(subreddit))
   }
 }

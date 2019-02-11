@@ -13,7 +13,7 @@ const selectedSubreddit = (state = 'reactjs', action) => {
   }
 }
 
-const posts = (state = {
+const users = (state = {
   isFetching: false,
   didInvalidate: false,
   items: []
@@ -35,7 +35,7 @@ const posts = (state = {
         ...state,
         isFetching: false,
         didInvalidate: false,
-        items: action.posts,
+        items: action.users,
         lastUpdated: action.receivedAt
       }
     default:
@@ -43,14 +43,14 @@ const posts = (state = {
   }
 }
 
-const postsBySubreddit = (state = { }, action) => {
+const usersBySubreddit = (state = { }, action) => {
   switch (action.type) {
     case INVALIDATE_SUBREDDIT:
     case RECEIVE_USERS:
     case REQUEST_USERS:
       return {
         ...state,
-        [action.subreddit]: posts(state[action.subreddit], action)
+        [action.subreddit]: users(state[action.subreddit], action)
       }
     default:
       return state
@@ -58,7 +58,7 @@ const postsBySubreddit = (state = { }, action) => {
 }
 
 const rootReducer = combineReducers({
-  postsBySubreddit,
+  usersBySubreddit,
   selectedSubreddit
 })
 
