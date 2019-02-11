@@ -1,31 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Switch, Route } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
+import {Provider} from 'react-redux';
+import store from './app/store';
 
-import Layout from './app/layouts/Layout';
-import MainPage from './app/pages/Main';
-import Users from './app/pages/Users';
-import User from './app/pages/User';
-import Posts from './app/pages/Posts';
-import Post from './app/pages/Post'
-import PageNotFound from './app/pages/PageNotFound';
+import Layout from './app/components/Layout';
 
+const app = document.getElementById('root');
 
-const app = document.querySelector('#root');
-
-ReactDOM.render(
-	<BrowserRouter>
-		<Layout>
-			<Switch>
-				<Route exact path="/" component={MainPage}/>
-				<Route exact path="/users" component={Users}/>
-				<Route path="/users/:userId" component={User}/> 
-				<Route exact path="/posts" component={Posts}/>
-				<Route path="/posts/:postId" component={Post}/>
-				<Route path="*" component={PageNotFound}/>
-			</Switch>
-		</Layout>
-	</BrowserRouter>,
-app);
+ReactDOM.render(<Provider store={store}>
+    <Layout />
+  </Provider>, 
+  app);
