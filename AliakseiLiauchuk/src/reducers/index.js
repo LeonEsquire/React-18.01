@@ -1,15 +1,11 @@
 import { combineReducers } from 'redux'
-import { REQUEST_USERS, RECEIVE_USERS } from '../actions'
+import { RECEIVE_USERS } from '../actions'
 
 
 let users = (state = {
   items: []
 }, action) => {
   switch (action.type) {
-    case REQUEST_USERS:
-      return {
-        ...state,
-      }
     case RECEIVE_USERS:
       return {
         ...state,
@@ -23,7 +19,6 @@ let users = (state = {
 const usersBySubreddit = (state = { }, action) => {
   switch (action.type) {
     case RECEIVE_USERS:
-    case REQUEST_USERS:
       return {
         ...state,
         [action.subreddit]: users(state[action.subreddit], action)
