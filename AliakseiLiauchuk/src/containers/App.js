@@ -18,16 +18,9 @@ class App extends Component {
 
   render() {
     const { users, isFetching, } = this.props
-    const isEmpty = users.length === 0
-    return (
-      <div>
-        {isEmpty
-          ? (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-          : <div>
+    return (<>
               <Users users={users} />
-            </div>
-        }
-      </div>
+            </>
     )
   }
 }

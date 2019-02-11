@@ -4,7 +4,6 @@ import { REQUEST_USERS, RECEIVE_USERS } from '../actions'
 
 let users = (state = {
   isFetching: false,
-  didInvalidate: false,
   items: []
 }, action) => {
   switch (action.type) {
@@ -12,13 +11,11 @@ let users = (state = {
       return {
         ...state,
         isFetching: true,
-        didInvalidate: false
       }
     case RECEIVE_USERS:
       return {
         ...state,
         isFetching: false,
-        didInvalidate: false,
         items: action.users,
       }
     default:
