@@ -1,29 +1,26 @@
 import React from "react";
 import Users from "../pages/Users";
+import User from "./User";
 import {connect} from 'react-redux';
-import {fetchUsers} from '../actions/tweetsActions';
+import {fetchUsers} from '../actions/usersActions';
 
 class UsersList extends React.Component {
     constructor (props) {
         super(props);
+        this.state = {
+            users: []
+        };
     }
     componentDidMount() {
-        console.log("componentDidMount в деле");
-        const { dispatch } = this.props
-        dispatch(fetchUsers())
+        this.props.dispatch(fetchUsers());
+        this.setState({users: this.props.users.users})
       }
 
     render() {
-        console.log("V UsersList");
-        //this.props.dispatch(fetchUsers())
-        // const users = this.props.users.map((user, index) => {
-        //     return <User key={index} {...user} />
-        // }); 
-        //this.props.dispatch(fetchUsers());
-        const users = this.props.users.map((user, index) => {
-                return <User key={index} {...user} />
-            }); ;
-
+        const users = this.props.users.users.map((user, index) => {
+            return <User key={index} {...user} />
+        }); ;
+       
         return(
            <div>
                <h1>Пользователи</h1>

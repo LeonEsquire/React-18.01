@@ -1,4 +1,4 @@
-console.log("V reducer");
+
 
 export default function( state={
     users: [],
@@ -6,7 +6,6 @@ export default function( state={
     fetched: false,
     error: null,
   }, action) {
-    console.log("Я прошел экшен и тип: " + action.type)
     switch (action.type) {
       case "FETCH_USERS": {
         return {...state, fetching: true}
@@ -23,6 +22,5 @@ export default function( state={
         }
       }
     }
-
     return state
 }
