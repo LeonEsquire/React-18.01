@@ -1,5 +1,5 @@
-export const REQUEST_POSTS = 'REQUEST_POSTS'
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
+export const REQUEST_USERS = 'REQUEST_USERS'
+export const RECEIVE_USERS = 'RECEIVE_USERS'
 export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT'
 export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT'
 
@@ -14,12 +14,12 @@ export const invalidateSubreddit = subreddit => ({
 })
 
 export const requestPosts = subreddit => ({
-  type: REQUEST_POSTS,
+  type: REQUEST_USERS,
   subreddit
 })
 
 export const receivePosts = (subreddit, json) => ({
-  type: RECEIVE_POSTS,
+  type: RECEIVE_USERS,
   subreddit,
   posts: json,
   receivedAt: Date.now()

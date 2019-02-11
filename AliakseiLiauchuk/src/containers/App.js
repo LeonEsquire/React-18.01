@@ -7,7 +7,7 @@ import Users from '../components/Users'
 class App extends Component {
   static propTypes = {
     selectedSubreddit: PropTypes.string.isRequired,
-    posts: PropTypes.array.isRequired,
+    users: PropTypes.array.isRequired,
     isFetching: PropTypes.bool.isRequired,
     lastUpdated: PropTypes.number,
     dispatch: PropTypes.func.isRequired
@@ -38,14 +38,14 @@ class App extends Component {
   }
 
   render() {
-    const { selectedSubreddit, posts, isFetching, lastUpdated } = this.props
-    const isEmpty = posts.length === 0
+    const { selectedSubreddit, users, isFetching, lastUpdated } = this.props
+    const isEmpty = users.length === 0
     return (
       <div>
         {isEmpty
           ? (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
           : <div style={{ opacity: isFetching ? 0.5 : 1 }}>
-              <Users users={posts} />
+              <Users users={users} />
             </div>
         }
       </div>
@@ -58,7 +58,7 @@ const mapStateToProps = state => {
   const {
     isFetching,
     lastUpdated,
-    items: posts
+    items: users
   } = postsBySubreddit[selectedSubreddit] || {
     isFetching: true,
     items: []
@@ -66,7 +66,7 @@ const mapStateToProps = state => {
 
   return {
     selectedSubreddit,
-    posts,
+    users,
     isFetching,
     lastUpdated
   }
