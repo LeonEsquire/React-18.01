@@ -1,29 +1,28 @@
 import React from "react";
-import axios from "axios";
-import User from "./User";
+import Users from "../pages/Users";
+import {connect} from 'react-redux';
+import {fetchUsers} from '../actions/tweetsActions';
 
 class UsersList extends React.Component {
     constructor (props) {
         super(props);
-
-        this.state = {
-            users: []
-        };
-
-        axios.get('https://jsonplaceholder.typicode.com/users')
-        .then(response => {
-            this.setState({users: response.data})
-        });
     }
+    componentDidMount() {
+        console.log("componentDidMount в деле");
+        const { dispatch } = this.props
+        dispatch(fetchUsers())
+      }
 
     render() {
-        if(!this.state.users.length) {
-            return null;
-        }
-
-        const users = this.state.users.map((user, index) => {
-            return <User key={index} {...user} />
-        }); 
+        console.log("V UsersList");
+        //this.props.dispatch(fetchUsers())
+        // const users = this.props.users.map((user, index) => {
+        //     return <User key={index} {...user} />
+        // }); 
+        //this.props.dispatch(fetchUsers());
+        const users = this.props.users.map((user, index) => {
+                return <User key={index} {...user} />
+            }); ;
 
         return(
            <div>
@@ -31,7 +30,12 @@ class UsersList extends React.Component {
                {users}
             </div>
         );
-    }
+    }  
+
 }
 
-export default UsersList;
+const mapStateToProps = (state) => ({users: state,})
+
+export default connect(mapStateToProps)(UsersList); 
+
+
