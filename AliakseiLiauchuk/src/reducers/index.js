@@ -3,14 +3,8 @@ import {
   REQUEST_USERS, RECEIVE_USERS
 } from '../actions'
 
-const selectedSubreddit = (state = 'reactjs', action) => {
-  switch (action.type) {
-    default:
-      return state
-  }
-}
 
-const users = (state = {
+let users = (state = {
   isFetching: false,
   didInvalidate: false,
   items: []
@@ -50,7 +44,6 @@ const usersBySubreddit = (state = { }, action) => {
 
 const rootReducer = combineReducers({
   usersBySubreddit,
-  selectedSubreddit
 })
 
 export default rootReducer

@@ -6,7 +6,7 @@ const Users = ({users}) => (
 
   <ul>
     {Array.prototype.map.call(users, function (user, index) {
-      return <li>
+      return <li key={index}>
           <p>{user.username}</p>
           <p>{user.name}</p>
           <p>{user.email}</p>

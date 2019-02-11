@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectSubreddit, fetchUsersIfNeeded, invalidateSubreddit } from '../actions'
+import { fetchUsersIfNeeded } from '../actions'
 import Users from '../components/Users'
 
 class App extends Component {
@@ -9,31 +9,11 @@ class App extends Component {
     selectedSubreddit: PropTypes.string.isRequired,
     users: PropTypes.array.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    lastUpdated: PropTypes.number,
     dispatch: PropTypes.func.isRequired
   }
 
   componentDidMount() {
     const { dispatch, selectedSubreddit } = this.props
-    dispatch(fetchUsersIfNeeded(selectedSubreddit))
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.selectedSubreddit !== this.props.selectedSubreddit) {
-      const { dispatch, selectedSubreddit } = this.props
-      dispatch(fetchUsersIfNeeded(selectedSubreddit))
-    }
-  }
-
-  handleChange = nextSubreddit => {
-    this.props.dispatch(selectSubreddit(nextSubreddit))
-  }
-
-  handleRefreshClick = e => {
-    e.preventDefault()
-
-    const { dispatch, selectedSubreddit } = this.props
-    dispatch(invalidateSubreddit(selectedSubreddit))
     dispatch(fetchUsersIfNeeded(selectedSubreddit))
   }
 
