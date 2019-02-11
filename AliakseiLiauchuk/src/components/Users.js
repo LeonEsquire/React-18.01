@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 var _this = this;
 
 const Users = ({users}) => (
@@ -15,9 +14,5 @@ const Users = ({users}) => (
     }, _this)}
   </ul>
 )
-
-Users.propTypes = {
-  users: PropTypes.array.isRequired
-}
 
 export default Users
