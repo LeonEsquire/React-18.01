@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetchUsersIfNeeded } from '../actions'
+import { fetchUsers } from '../actions'
 import Users from '../components/Users'
 
 class App extends Component {
@@ -13,7 +13,7 @@ class App extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(fetchUsersIfNeeded())
+    dispatch(fetchUsers())
   }
 
   render() {

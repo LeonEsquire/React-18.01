@@ -10,13 +10,9 @@ export const receiveUsers = (json) => ({
   users: json,
 })
 
-const fetchUsers = () => dispatch => {
+export const fetchUsers = () => dispatch => {
   dispatch(requestUsers())
   return fetch(`https://jsonplaceholder.typicode.com/users`)
     .then(response => response.json())
     .then(json => dispatch(receiveUsers(json)))
-}
-
-export const fetchUsersIfNeeded = () => (dispatch) => {
-    return dispatch(fetchUsers())
 }

@@ -1,7 +1,5 @@
 import { combineReducers } from 'redux'
-import {
-  REQUEST_USERS, RECEIVE_USERS
-} from '../actions'
+import { REQUEST_USERS, RECEIVE_USERS } from '../actions'
 
 
 let users = (state = {
