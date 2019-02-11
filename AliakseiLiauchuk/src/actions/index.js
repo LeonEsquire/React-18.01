@@ -5,17 +5,16 @@ export const requestUsers = () => ({
   type: REQUEST_USERS
 })
 
-export const receiveUsers = (subreddit, json) => ({
+export const receiveUsers = (json) => ({
   type: RECEIVE_USERS,
-  subreddit,
   users: json,
 })
 
-const fetchUsers = subreddit => dispatch => {
+const fetchUsers = () => dispatch => {
   dispatch(requestUsers())
   return fetch(`https://jsonplaceholder.typicode.com/users`)
     .then(response => response.json())
-    .then(json => dispatch(receiveUsers(subreddit, json)))
+    .then(json => dispatch(receiveUsers(json)))
 }
 
 const shouldFetchUsers = (state, subreddit) => {
