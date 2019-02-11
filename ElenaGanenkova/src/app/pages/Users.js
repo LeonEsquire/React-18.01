@@ -9,9 +9,6 @@ class Users extends React.Component {
     }
 
     render() {
-        console.log('this users in Users component');
-        console.log(this.props);
-
         if (this.props.users.length > 0) {
             return (
                 <div>

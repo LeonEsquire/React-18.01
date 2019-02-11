@@ -24,7 +24,7 @@ ReactDOM.render(<Provider store={store}>
 		<Route path="/" component={Layout}>
 			<IndexRoute component={MainPage}/>
 			<Route path="users" component={Users}>
-				{/*<Route path=":userId" component={User}/>*/}
+				<Route path=":userId" component={User}/>
 			</Route>
 			<Route path="*" component={PageNotFound}/>
 		</Route>
