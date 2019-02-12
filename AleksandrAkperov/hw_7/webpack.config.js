@@ -6,7 +6,7 @@ module.exports = {
     entry: {
         //именно так потому, что этот метод сам ставит нужный слэш
         //в линуксе слэш в обратную сторону
-        main: path.resolve(__dirname, 'src', 'client.js')
+        main: path.resolve(__dirname, 'src', 'client3.js')
     },
     //куда помещаем сборку
     output: {
