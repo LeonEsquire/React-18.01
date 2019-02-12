@@ -1,21 +1,12 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import UserList from '../components/UserList'
-import {getUsers, addUser} from '../actions/userActions'
-import store from '../stores/userStore'
-
+import {fetchUsers, addUser} from '../actions/userActions'
 
 class Users extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            users: []
-        }
-        this.onUsersChange = this.onUsersChange.bind(this)
         this.newUser = this.newUser.bind(this)
-    }
-
-    onUsersChange() {
-        this.setState({users: store.users})
     }
 
     newUser() {   
@@ -26,22 +17,27 @@ class Users extends React.Component {
         phone = '+7 (000) 000-00-00',
         website = 'example.com'
 
-        addUser(id, username, name, email, phone, website)
+        this.props.dispatch(addUser(id, username, name, email, phone, website))        
     }
 
     componentDidMount() {
-        getUsers()
-        store.on('change', this.onUsersChange)
+        this.props.dispatch(fetchUsers())
     }
 
     render() {
         return (
             <>
                 <button className="form__submit" onClick={this.newUser}>Add test user</button>
-                <UserList users={this.state.users}/>
+                <UserList users={this.props.users}/>
             </>
         )
     }
 }
 
-export default Users
+function mapStateToProps(state) {
+    return {
+        users: state.users.users
+    }
+}
+
+export default connect(mapStateToProps)(Users)

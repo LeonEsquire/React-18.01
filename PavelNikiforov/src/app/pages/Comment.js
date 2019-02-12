@@ -1,30 +1,25 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import CommentProfile from '../components/Comment'
-import axios from 'axios'
+import {fetchComments} from '../actions/commentAction'
 
 class Comment extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            comment: null
-        }
-    }
-
     componentDidMount() {
-        axios.get(`https://jsonplaceholder.typicode.com/comments/${this.props.params.commentId}`)
-        .then(response => {
-            this.setState({comment: response.data})
-        })
+        this.props.dispatch(fetchComments(this.props.params.commentId))
     }
 
     render() {
         return (
             <>
-                {this.state.comment && <CommentProfile {...this.state.comment}/>}
+                <CommentProfile {...this.props.comments}/>
             </>
         )
     }
 }
+function mapStateToProps(state) {
+    return {
+        comments: state.comments.comments
+    }
+}
 
-export default Comment
+export default connect(mapStateToProps)(Comment)

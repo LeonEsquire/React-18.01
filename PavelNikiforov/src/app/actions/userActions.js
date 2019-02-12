@@ -1,20 +1,31 @@
-import dispatcher from '../Dispatcher'
-import {ADD_USER, GET_USERS} from '../constants/userConstants'
 import axios from 'axios'
 
-export function addUser(id, username, name, email, phone, website) {
-    dispatcher.dispatch({
-        type: ADD_USER,
-        data: {id, username, name, email, phone, website}
+export function fetchUsers(id = null) {
+    return (dispatch => {
+        dispatch({type: 'FETCH_USERS'})
+        
+        const url = `https://jsonplaceholder.typicode.com/users${id ? `/${id}` : ''}`
+        axios.get(url)
+        .then(response => {
+            dispatch({
+                type: 'FETCH_USERS_FULFILLED',
+                payload: response.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: 'FETCH_USERS_REJECTED',
+                payload: err
+            })
+        })
     })
 }
 
-export function getUsers() {
-    axios.get('https://jsonplaceholder.typicode.com/users/')
-    .then(response => {
-        dispatcher.dispatch({
-            type: GET_USERS,
-            data: response.data
+export function addUser(id, username, name, email, phone, website) {
+    return (dispatch => {
+        dispatch({
+            type: 'ADD_USER',
+            payload: {id, username, name, email, phone, website}
         })
     })
 }
