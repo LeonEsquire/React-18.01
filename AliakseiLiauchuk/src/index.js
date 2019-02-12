@@ -29,7 +29,7 @@ render(
 		  <Layout>
 			  <Switch>
 				  <Route exact path="/" component={MainPage}/>
-				  <Route exact path="/users/" component={App}/>
+				  <Route exact strict path="/users" component={App}/>
 				  <Route component={PageNotFound}/>
 			  </Switch>
 		  </Layout>
