@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Users = ({users}) => (
+const UsersList = ({users}) => (
 
   <ul>
     {users.map((user, index) => {
@@ -14,4 +14,4 @@ const Users = ({users}) => (
   </ul>
 )
 
-export default Users
+export default UsersList

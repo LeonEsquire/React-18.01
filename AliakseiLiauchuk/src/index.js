@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import reducer from './reducers'
-import App from './containers/App'
+import Users from './containers/Users'
 import PageNotFound from './pages/PageNotFound'
 import MainPage from './pages/Main'
 import Layout from './components/Layout'
@@ -29,7 +29,7 @@ render(
 		  <Layout>
 			  <Switch>
 				  <Route exact path="/" component={MainPage}/>
-				  <Route exact strict path="/users" component={App}/>
+				  <Route exact strict path="/users" component={Users}/>
 				  <Route component={PageNotFound}/>
 			  </Switch>
 		  </Layout>
