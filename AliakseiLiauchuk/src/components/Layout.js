@@ -1,4 +1,5 @@
 import React from 'react';
+import Menu from './Menu'
 import MenuItem from './MenuItem'
 
 export default class Layout extends React.Component {
@@ -14,21 +15,14 @@ export default class Layout extends React.Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <div className="container">
-            <a href="/" className="navbar-brand">{this.props.brand}</a>
-            <div className="collapse navbar-collapse">
-              <ul className="navbar-nav">
-                <MenuItem href="/" active={this.isActive('/')}>
-                  Главная
-                </MenuItem>
-                <MenuItem href="/users" active={this.isActive('/users')}>
-                  Пользователи
-                </MenuItem>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <Menu brand={this.brand}>
+          <MenuItem href="/" active={this.isActive('/')}>
+            Главная
+          </MenuItem>
+          <MenuItem href="/users" active={this.isActive('/users')}>
+            Пользователи
+          </MenuItem>
+        </Menu>
         <div className="container">
           <div className="row">
             <div className="col-12">
