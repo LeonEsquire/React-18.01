@@ -1,4 +1,5 @@
 import React from 'react';
+import MenuItem from './MenuItem'
 
 export default class Layout extends React.Component {
   constructor(props) {
@@ -18,12 +19,12 @@ export default class Layout extends React.Component {
             <a href="/" className="navbar-brand">{this.props.brand}</a>
             <div className="collapse navbar-collapse">
               <ul className="navbar-nav">
-                <li className={this.props.active ? 'nav-item active' : 'nav-item'}>
-                  <a className="nav-link" href="/">Главная</a>
-                </li>
-                <li className={this.props.active ? 'nav-item active' : 'nav-item'}>
-                  <a className="nav-link" href="/users">Пользователи</a>
-                </li>
+                <MenuItem href="/" active={this.isActive('/')}>
+                  Главная
+                </MenuItem>
+                <MenuItem href="/users" active={this.isActive('/users')}>
+                  Пользователи
+                </MenuItem>
               </ul>
             </div>
           </div>
