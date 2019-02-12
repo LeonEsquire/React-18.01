@@ -1,6 +1,6 @@
 import React from 'react'
 
-const User = (props) => (
+export const User = (props) => (
     <div className="card border-secondary mb-3">
         <div className="card-header">
           {props.user.username}
@@ -11,6 +11,4 @@ const User = (props) => (
           <p>{props.user.phone}</p>
         </div>
     </div>  
-  )
-  
-export default User
+)
