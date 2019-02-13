@@ -14,9 +14,9 @@ import MainPage from './pages/Main'
 import Layout from './components/Layout'
 
 const middleware = [ thunk ]
-if (process.env.NODE_ENV !== 'production') {
-  middleware.push(createLogger())
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   middleware.push(createLogger())
+// }
 
 const store = createStore(
   reducer,

@@ -3,8 +3,8 @@ import { User } from './User'
 
 export const UsersList = ({users}) => (
   <>
-    {users.map((user) => {
-      return <User user={user}/>
+    {users.map((user, index) => {
+      return <User key={index} user={user}/>
     })}
   </>
 )

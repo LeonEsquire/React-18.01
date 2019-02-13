@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchUsers } from '../actions'
+import { fetchUsers, fetchUser } from '../actions'
 import { UsersList } from '../components/UsersList'
 
 class Users extends Component {
+  fetchUser() {
+    this.props.dispatch(fetchUser());
+  }
 
   componentDidMount() {
     const { dispatch } = this.props
@@ -13,6 +16,7 @@ class Users extends Component {
   render() {
     const { users } = this.props
     return (<>
+              <button type="submit" onClick={this.fetchUser.bind(this)}>add user</button>
               <UsersList users={users} />
             </>
     )
