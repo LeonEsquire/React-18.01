@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { RECEIVE_USERS, ADD_USER } from '../actions/UserActions'
 
 
-const usersAll = (state = { items: []}, action) => {
+const userReducer = (state = { items: []}, action) => {
   switch (action.type) {
     case RECEIVE_USERS:
       return {
@@ -12,7 +12,7 @@ const usersAll = (state = { items: []}, action) => {
     case ADD_USER:
       return {
         ...state,
-        items: [action.user, ...action.users.usersAll.items]
+        items: [action.user, ...action.users.userReducer.items]
       }
     default:
       return state
@@ -20,7 +20,7 @@ const usersAll = (state = { items: []}, action) => {
 }
 
 const rootReducer = combineReducers({
-  usersAll,
+  userReducer,
 })
 
 export default rootReducer

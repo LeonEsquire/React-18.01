@@ -24,10 +24,10 @@ class Users extends Component {
 }
 
 const mapStateToProps = state => {
-  const { usersAll } = state
+  const { userReducer } = state
 
   return {
-    users: usersAll.items
+    users: userReducer.items
   }
 }
 
