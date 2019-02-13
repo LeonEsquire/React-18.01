@@ -7,10 +7,10 @@ import { createLogger } from 'redux-logger'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
-import reducers from './reducers'
+import reducers from './reducers/UserReducer'
 import Users from './containers/Users'
 import PageNotFound from './pages/PageNotFound'
-import MainPage from './pages/Main'
+import MainPage from './pages/MainPage'
 import Layout from './components/Layout'
 
 const middleware = [ thunk ]

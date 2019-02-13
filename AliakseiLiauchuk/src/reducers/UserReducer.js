@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { RECEIVE_USERS, ADD_USER } from '../actions'
+import { RECEIVE_USERS, ADD_USER } from '../actions/UserActions'
 
 
 const usersAll = (state = { items: []}, action) => {
