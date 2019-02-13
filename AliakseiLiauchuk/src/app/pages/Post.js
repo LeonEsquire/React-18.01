@@ -1,5 +1,5 @@
 import React from 'react';
-import PostInfo from '../components/Post';
+import PostItem from '../components/PostItem';
 import axios from 'axios';
 
 export default class Post extends React.Component {
@@ -10,7 +10,7 @@ export default class Post extends React.Component {
       post: null
     };
 
-    axios.get(`https://jsonplaceholder.typicode.com/posts/${this.props.params.postId}`)
+    axios.get(`https://jsonplaceholder.typicode.com/posts/${this.props.match.params.postId}`)
     .then(response => {
       this.setState({post: response.data})
     });
@@ -19,7 +19,7 @@ export default class Post extends React.Component {
   render() {
     return (
       <div>
-        {this.state.post && <PostInfo {...this.state.post}/>}
+        {this.state.post && <PostItem {...this.state.post}/>}
       </div>
     );
   }

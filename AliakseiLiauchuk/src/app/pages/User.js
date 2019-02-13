@@ -10,7 +10,7 @@ export default class User extends React.Component {
       user: null
     };
 
-    axios.get(`https://jsonplaceholder.typicode.com/users/${this.props.params.userId}`)
+    axios.get(`https://jsonplaceholder.typicode.com/users/${this.props.match.params.userId}`)
     .then(response => {
       this.setState({user: response.data})
     });
