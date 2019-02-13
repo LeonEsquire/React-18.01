@@ -14,8 +14,7 @@ export const getUsers = () => dispatch => {
       ))
 }
 
-export const addUser = () => (dispatch, getState) => {
-  const users = getState()
+export const addUser = () => dispatch => {
   return dispatch(
     {
       type: ADD_USER,
@@ -25,7 +24,6 @@ export const addUser = () => (dispatch, getState) => {
         email: "newEmail",
         phone: "newPhone"
       },
-      users: users
     }
   )
 }

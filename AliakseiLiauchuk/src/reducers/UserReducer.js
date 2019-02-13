@@ -12,7 +12,7 @@ const userReducer = (state = { items: []}, action) => {
     case ADD_USER:
       return {
         ...state,
-        items: [action.user, ...action.users.userReducer.items]
+        items: [action.user, ...state.items]
       }
     default:
       return state
