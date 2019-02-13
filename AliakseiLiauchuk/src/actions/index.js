@@ -2,12 +2,12 @@ export const RECEIVE_USERS = 'RECEIVE_USERS'
 export const ADD_USER = 'ADD_USER'
 import axios from 'axios'
 
-export const receiveUsers = (json) => ({
+export const receiveUsers = json => ({
   type: RECEIVE_USERS,
   users: json,
 })
 
-export const addUser = (users) => ({
+export const addUser = users => ({
   type: ADD_USER,
   user: {
     username: "newUsername",
@@ -28,9 +28,3 @@ export const fetchUser = () => (dispatch, getState) => {
   const users = getState()
   return dispatch(addUser(users))
 }
-
-// function fetchUser(id) {
-//   return (dispatch, getState, api) => {
-//     // you can use api here
-//   }
-// }

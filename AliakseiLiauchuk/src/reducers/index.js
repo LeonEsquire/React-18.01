@@ -12,7 +12,7 @@ const usersAll = (state = { items: []}, action) => {
     case ADD_USER:
       return {
         ...state,
-        items: action.users.usersAll.items.concat(action.user)
+        items: [action.user, ...action.users.usersAll.items]
       }
     default:
       return state
