@@ -6,12 +6,12 @@ module.exports = {
     entry: {
         //именно так потому, что этот метод сам ставит нужный слэш
         //в линуксе слэш в обратную сторону
-        main: path.resolve(__dirname, 'src', 'client3.js')
+        main: path.resolve(__dirname, 'src', 'App.js')
     },
     //куда помещаем сборку
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'client.min.js'
+        filename: 'boundle.js'
     },
     //сервер
     devServer: {
