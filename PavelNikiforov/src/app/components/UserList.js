@@ -5,23 +5,14 @@ import User from './User'
 class UserList extends React.Component {
     constructor(props) {
         super(props)
-
-        this.state = {
-            users: []
-        }
-
-        axios.get('https://jsonplaceholder.typicode.com/users/')
-            .then(response => {
-                this.setState({ users: response.data })
-            })
     }
 
     render() {
-        if (!this.state.users.length) {
+        if (!this.props.users.length) {
             return null;
         }
 
-        const users = this.state.users.map((user, index) => {
+        const users = this.props.users.map((user, index) => {
             return <User key={index} {...user} />
         })
 

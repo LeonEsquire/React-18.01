@@ -1,28 +1,27 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import UserProfile from '../components/User'
-import axios from 'axios'
+import {fetchUsers} from '../actions/userActions'
 
 class User extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            user: null
-        }
-
-        axios.get(`https://jsonplaceholder.typicode.com/users/${this.props.params.userId}`)
-        .then(response => {
-            this.setState({user: response.data})
-        })
+    componentDidMount() {
+        this.props.dispatch(fetchUsers(this.props.params.userId))
     }
 
     render() {
+        console.log('This is User component')
         return (
             <>
-                {this.state.user && <UserProfile {...this.state.user}/>}
+                {this.props.users && <UserProfile {...this.props.users}/>}
             </>
         )
     }
 }
 
-export default User
+function mapStateToProps(state) {
+    return {
+        users: state.users.users
+    }
+}
+
+export default connect(mapStateToProps)(User)

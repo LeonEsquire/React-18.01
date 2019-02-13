@@ -27,23 +27,23 @@
                 line-height: 1.5em;
                 font-size: 24px;
             }
+        }
+    }
 
-            &__submit {
-                display: block;
-                width: 100%;
-                border: none;
-                border-radius: 5px;
-                background: $accentColor;
-                padding: 0 15px;
-                cursor: pointer;
-                font-size: 18px;
-                line-height: 2em;
-                transition: background 0.5s ease;
+    &__submit {
+        display: block;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        background: $accentColor;
+        padding: 0 15px;
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 2em;
+        transition: background 0.5s ease;
 
-                &:hover {
-                    background: $accentColorLight;
-                }
-            }
+        &:hover {
+            background: $accentColorLight;
         }
     }
 }

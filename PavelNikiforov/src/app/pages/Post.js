@@ -1,28 +1,26 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import PostProfile from '../components/Post'
-import axios from 'axios'
+import {fetchPosts} from '../actions/postAction'
 
 class Post extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            post: null
-        }
-
-        axios.get(`https://jsonplaceholder.typicode.com/posts/${this.props.params.postId}`)
-        .then(response => {
-            this.setState({post: response.data})
-        })
+    componentDidMount() {
+        this.props.dispatch(fetchPosts(this.props.params.postId))
     }
 
     render() {
         return (
             <>
-                {this.state.post && <PostProfile {...this.state.post}/>}
+                {this.props.posts && <PostProfile {...this.props.posts}/>}
             </>
         )
     }
 }
 
-export default Post
+function mapStateToProps(state) {
+    return {
+        posts: state.posts.posts
+    }
+}
+
+export default connect(mapStateToProps)(Post)
