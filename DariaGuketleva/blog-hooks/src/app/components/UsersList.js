@@ -5,10 +5,11 @@ import User from './User';
 const UsersList =props=>{
     const [users, setUsers] = useState([]);
 useEffect(()=>{
-    axios.get('https://jsonplaceholder.typicode.com/users/')
+    axios.get('https://todolist-4b12c.firebaseio.com/users.json')
     .then(response => {
         setUsers(response.data)
     });
+
     return () => {
         console.log('cleanup')
     };
