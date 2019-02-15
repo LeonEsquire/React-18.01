@@ -1,42 +1,40 @@
-export default function reducer (state ={
-    user: {
-        id:null,
-        name:null,
-        age:null,
-    },
+const initialUser = {
+    users: [],
     fetching:false,
     fetched:false,
     error:null,
-}, action) {
+ }
+
+export default function reducer (state = initialUser, action) {
 
     switch (action.type) {
         case "FETCH_USER": {
             return {...state, fetching:true }
-            break;
+            
         }
         case "FETCH_USER_REJECTED": {
             return {...state, fetching:false, error:action.payload }
-            break;
+            
         }
         case "FETCH_USER_FULLFILLED": {
-            return {...state, fetching:false, fetched:true, user:action.payload}
-            break;
+            return {...state, fetching:false, fetched:true, users:action.payload}
+            
         }
         case "SET_USER_NAME": {
             return {...state, 
                 user:{...state.user, name:action.payload} }
-            break;
+            
         }
         case "SET_USER_AGE": {
             return {...state, 
                 user:{...state.user, age:action.payload} 
             }
-            break;
+            
         }
     
        
     }
-
+    return state;
 
 
 }

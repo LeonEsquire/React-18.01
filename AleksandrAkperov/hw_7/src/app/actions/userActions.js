@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default function fetchUser () {
+export function fetchUser () {
     return function (dispatch) {
         dispatch ({type:"FETCH_USER"});
         axios.get("https://jsonplaceholder.typicode.com/users")

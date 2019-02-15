@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 
 
 
-import user from './userReduser';
+import user from './userReducer';
 import tweets from './tweetsReducer';
 
 export default combineReducers({
