@@ -4,10 +4,13 @@ import {fetchUser} from "../actions/userActions";
 
  class Layout extends React.Component {
 
-    
+    readUsers() {
+        
+    }
 
     render() {
         console.log(this.props);
+        console.log(this.props.users);
         return <h1> 1 </h1>   
     }
 
@@ -20,7 +23,7 @@ import {fetchUser} from "../actions/userActions";
 function mapStateToProps(state) {
 
     return {
-        user:state.user.users,
+        users:state.user.users,
         userFetch:state.user.fetched,
         tweets: state.tweets.tweets
     }
