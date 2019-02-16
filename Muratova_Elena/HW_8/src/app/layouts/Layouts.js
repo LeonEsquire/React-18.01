@@ -1,41 +1,29 @@
-import React from "react";
+import React, {useState, useEffect}  from "react";
 import Menu from '../components/Menu';
 import MenuItem from '../components/MenuItem';
 
-class Layouot extends React.Component {
-    constructor (props) {
-        super(props);
-        this.brand = 'React blog';
-    }
+const Layouot = props => {
+    const [brand, setBrand] = useState("React blog!");
 
-    isActive(href) {
+    const isActive = href => {
         return window.location.pathname === href;
-    }
+    };
 
-    render() {
         return(
            <div>
-               <Menu brand={this.brand}>
-                    <MenuItem href="/" active={this.isActive('/')}>
+               <Menu brand={brand}>
+                    <MenuItem href="/" active={isActive('/')}>
                         Главная
                     </MenuItem>
 
-                    <MenuItem href="/posts" active={this.isActive('/posts')}>
-                        Посты
-                    </MenuItem>
-
-                    <MenuItem href="/comments" active={this.isActive('/comments')}>
-                        Комментарии
-                    </MenuItem>
-
-                    <MenuItem href="/users" active={this.isActive('/users')}>
+                    <MenuItem href="/users" active={isActive('/users')}>
                         Пользователи
                     </MenuItem>
                </Menu>
                <div className="container">
                     <div className="row">
                         <div className="col-12">
-                        {this.props.children}
+                        {props.children}
                         </div>
                     </div>
                </div>
@@ -45,6 +33,5 @@ class Layouot extends React.Component {
            </div>
         );
     }
-}
 
 export default Layouot;

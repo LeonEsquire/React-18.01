@@ -1,37 +1,27 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import User from "./User";
 
-class UsersList extends React.Component {
-    constructor (props) {
-        super(props);
+const UsersList = props => {
+    const [users, setUsers] = useState([]);
 
-        this.state = {
-            users: []
-        };
+    useEffect(()=>{
+        axios.get(`https://jsonplaceholder.typicode.com/users`)
+            .then(response => {
+                setUsers(response.data)
+            });
+    },[]);
 
-        axios.get('https://jsonplaceholder.typicode.com/users')
-        .then(response => {
-            this.setState({users: response.data})
-        });
-    }
+    const usersView = users.map((user, index) => {
+        return <User key={index} {...user} />
+    });
 
-    render() {
-        if(!this.state.users.length) {
-            return null;
-        }
-
-        const users = this.state.users.map((user, index) => {
-            return <User key={index} {...user} />
-        }); 
-
-        return(
-           <div>
-               <h1>Пользователи</h1>
-               {users}
-            </div>
-        );
-    }
+    return(
+        <div>
+            <h1>Пользователи</h1>
+            {usersView}
+        </div>
+    );
 }
 
 export default UsersList;
