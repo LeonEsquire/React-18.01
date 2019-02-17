@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Router, Route, IndexRoute, browserHistory, hashHistory} from 'react-router';
 
 import Layout from './app/layouts/Layout';
+import Main from './app/pages/Main';
 
 
 import MainPage from './app/pages/Main';
@@ -18,15 +19,27 @@ import store from './store';
 
 const app = document.querySelector('#root');
 
-// localhost:8000/about
-ReactDOM.render(<Provider store={store}>
-	<Router history={browserHistory}>
-		<Route path="/" component={Layout}>
-			<IndexRoute component={MainPage}/>
-			<Route path="users" component={Users}>
-				<Route path=":userId" component={User}/>
-			</Route>
-			<Route path="*" component={PageNotFound}/>
-		</Route>
-	</Router></Provider>,
-app);
+class App extends React.Component {
+    render () {
+        return (
+            <Router history={browserHistory}>
+                <Route path='/' component={Layout}>
+                    <IndexRoute component={Main}/>
+                    <Route path='users' component={Users}>
+                        <Route path=':id' component={User}/>
+                    </Route>
+                    <Route path='*' component={PageNotFound}/>
+                </Route>
+            </Router>
+        );
+    }
+}
+
+
+ReactDOM.render(
+    <Provider store = {store}>
+        <App/>
+    </Provider>, app
+);
+
+

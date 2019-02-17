@@ -4,27 +4,18 @@ import {connect} from 'react-redux';
 import {fetchSingleUser} from '../actions/userActions';
 import {fetchUsers} from "../actions/usersActions";
 
-export default  class User extends React.Component {
-    constructor(props) {
-        super(props);
+class User extends React.Component {
 
-        this.state = {
-            user: null
-        };
-
-
+    componentDidMount() {
+        this.props.dispatch(fetchSingleUser(this.props.params.id));
     }
-
-    // componentDidMount() {
-    //     this.props.dispatch(fetchSingleUser());
-    //     console.log(this.state);
-    // }
 
     render() {
         return (
             <div>
-                single user will be here
-                {/*{this.state.user && <UserProfile {...this.state.user}/>}*/}
+                {this.props.user.fetchingUser ? 'single user will be here' : null}
+
+                {this.props.user.singleUser && <UserProfile {...this.props.user.singleUser}/>}
             </div>
         );
     }
@@ -34,8 +25,8 @@ function mapStateToProps(state) {
     return {
         // user: state.user.user,
         // userFetched: state.user.fetched,
-        users: state
+        user: state.user
     };
 }
 
-// export default connect(mapStateToProps)(User);
+export default connect(mapStateToProps)(User);
