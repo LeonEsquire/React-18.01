@@ -4,7 +4,7 @@ const path = require('path'),
 
 module.exports = {
     entry: {
-        main: path.resolve(__dirname, 'src', 'index.js'),
+        main: path.resolve(__dirname, 'src', 'App.js'),
     },
 
     output: {
@@ -14,7 +14,7 @@ module.exports = {
 
     devServer: {
         historyApiFallback: true,
-        contentBase: "./dist",
+        contentBase: path.resolve(__dirname, 'dist')
     },
 
     module: {
@@ -51,5 +51,6 @@ module.exports = {
             filename: '[name].css',
             chunkFilename: '[id].css',
         })
-    ],
+    ]
+
 };
