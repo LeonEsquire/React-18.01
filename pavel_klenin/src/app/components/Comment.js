@@ -11,13 +11,13 @@ class Comment extends React.Component {
                     className={style.commentBody}>
                     {this.props.body}
                 </p>
-                {(window.location.pathname != `/blogs/${this.props.postId}`) && 
+                {(window.location.pathname != `/posts/${this.props.postId}`) && 
                     <p className={style.commentTo}>
                         to&nbsp;
                         <Link 
                             className={style.commentLink} 
-                            to={`/blogs/${this.props.postId}`}>
-                            blog
+                            to={`/posts/${this.props.postId}`}>
+                            post
                         </Link>
                     </p>
                 }

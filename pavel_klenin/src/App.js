@@ -1,16 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, IndexRoute, browserHistory, hashHistory} from 'react-router';
+import {Provider} from 'react-redux';
+
+import store from './app/store/store';
 
 import Developer from './app/components/Developer';
 import Layout from './app/layouts/Layout';
 
 import Main from './app/pages/Main';
-import Blogs from './app/pages/Blogs';
-import Blog from './app/pages/Blog';
+import Posts from './app/pages/Posts';
+import PostCard from './app/pages/PostCard';
 import Comments from './app/pages/Comments';
 import Users from './app/pages/Users';
-import User from './app/pages/User';
+import UserCard from './app/pages/UserCard';
 import PageNotFound from './app/pages/PageNotFound';
 
 class App extends React.Component {
@@ -22,12 +25,12 @@ class App extends React.Component {
             <Router history={browserHistory}>
                 <Route path='/' component={Layout}>
                     <IndexRoute component={Main}/>
-                    <Route path='blogs' component={Blogs}>
-                        <Route path=':blogID' component={Blog}/>
+                    <Route path='posts' component={Posts}>
+                        <Route path=':postID' component={PostCard}/>
                     </Route>
                     <Route path='comments' component={Comments}/>
                     <Route path='users' component={Users}>
-                        <Route path=':userID' component={User}/>
+                        <Route path=':userID' component={UserCard}/>
                     </Route>
                     <Route path='*' component={PageNotFound}/>
                 </Route>
@@ -38,6 +41,10 @@ class App extends React.Component {
 
 const app = document.querySelector('#root');
 
-ReactDOM.render(<App/>, app);
+ReactDOM.render(
+    <Provider store = {store}>
+        <App/>
+    </Provider>, app
+);
 
 

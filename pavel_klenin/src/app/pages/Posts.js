@@ -3,7 +3,7 @@ import React from 'react';
 import PostList from '../components/PostList';
 
 
-class Blogs extends React.Component {
+class Posts extends React.Component {
     render () {
         return (
             <div>
@@ -17,4 +17,4 @@ class Blogs extends React.Component {
     };
 }
 
-export default Blogs;
+export default Posts;

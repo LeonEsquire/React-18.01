@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Developer from '../components/Developer';
 import Menu from '../components/Menu';
 import MenuItem from '../components/MenuItem';
 
@@ -21,8 +20,8 @@ class Layout extends React.Component {
                         <MenuItem href='/' active={this.isActive('/')}>
                             Main
                         </MenuItem>
-                        <MenuItem href='/blogs' active={this.isActive('/blogs')}>
-                            Blogs
+                        <MenuItem href='/posts' active={this.isActive('/posts')}>
+                            Posts
                         </MenuItem>
                         <MenuItem href='/comments' active={this.isActive('/comments')}>
                             Comments
