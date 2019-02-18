@@ -1,32 +1,48 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import {fetchUser} from "../actions/userActions";
+import  Menu from '../components/Menu'
+import  MenuItem from '../components/MenuItem'
 
- class Layout extends React.Component {
 
-    readUsers() {
-        
+export default class  Layout extends React.Component {
+    constructor(props) {
+            super(props);
+            this.brand = 'React + Redux!'
+        }
+
+    isActive (href){
+        return window.location.pathname === href
     }
 
-    render() {
-        console.log(this.props);
-        console.log(this.props.users);
-        return <h1> 1 </h1>   
+    render(){
+        return (
+           <div>
+               <Menu brand = {this.brand}>
+                   <MenuItem href="/" active={this.isActive("/")} >
+                       Главная
+                   </MenuItem>
+                   <MenuItem href="/posts" active={this.isActive("/posts")}>
+                       Посты
+                   </MenuItem>
+                   <MenuItem href="/comments" active={this.isActive("/comments")}>
+                       Комменты
+                   </MenuItem>
+                   <MenuItem href="/users" active={this.isActive("/users")}>
+                       Пользователи
+                   </MenuItem>
+               </Menu>
+               <div className="container">
+                   <div className="row">
+                       <div className="col-12">
+                           {this.props.children}
+                       </div>
+                   </div>
+               </div>
+               <footer className="card-footer">
+                   copy:
+               </footer>
+           </div>
+        );
     }
-
-    componentDidMount(){
-        this.props.dispatch(fetchUser());
-    }
-
 }
 
-function mapStateToProps(state) {
-
-    return {
-        users:state.user.users,
-        userFetch:state.user.fetched,
-        tweets: state.tweets.tweets
-    }
-}
-
-export default connect(mapStateToProps)(Layout);
+ 
