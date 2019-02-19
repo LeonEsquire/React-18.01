@@ -15,8 +15,7 @@ export function fetchPosts () {
     
 }
 
-export function deletePost(element) {
-    return function (dispatch) {
-            dispatch({type:"DELETE_POST", payload:element})
-};
+export function deletePost(post) {
+    return {type:"DELETE_POST", payload:post}
+            
 }

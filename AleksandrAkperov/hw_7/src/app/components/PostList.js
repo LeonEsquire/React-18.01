@@ -10,8 +10,8 @@ import {fetchPosts, deletePost} from "../actions/postAction";
         
     }
     
-    delete (element) {
-        this.props.dispatch(deletePost(element))
+    delete (postId) {
+        this.props.dispatch(deletePost(postId))
     }    
 
 
@@ -23,7 +23,7 @@ import {fetchPosts, deletePost} from "../actions/postAction";
             return <button className="btn btn-primary" onClick={this.fetchPosts.bind(this)} >Загрузить все посты</button>
         }
         const postItems = posts.map((post, index) => {
-            return <Post key={index} {...post} del = {this.delete.bind(this, post.id)} />
+            return <Post key={post.id} {...post} deletepost = {this.delete.bind(this, post.id)} />
         });
         console.log(posts)
         return (
