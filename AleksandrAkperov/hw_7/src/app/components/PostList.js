@@ -4,29 +4,32 @@ import { connect } from 'react-redux';
 import {fetchPosts, deletePost} from "../actions/postAction";
 
  class PostList extends React.Component {
+    
     fetchPosts () {
         this.props.dispatch(fetchPosts());
+        
     }
     
-    delete (postList) {
-        this.props.dispatch(deletePost(postList))
+    delete (element) {
+        this.props.dispatch(deletePost(element))
     }    
 
 
     render() {
        
         const posts = this.props.posts;
+
         if (!posts.length) {
             return <button className="btn btn-primary" onClick={this.fetchPosts.bind(this)} >Загрузить все посты</button>
         }
-        const postList = posts.map((post, index) => {
-            return <Post key={index} {...post} deletepost = {this.delete.bind(this, index)} />
+        const postItems = posts.map((post, index) => {
+            return <Post key={index} {...post} del = {this.delete.bind(this, post.id)} />
         });
-        console.log(postList)
+        console.log(posts)
         return (
             <div>
                 <h1>Посты</h1>
-                {postList}
+                {postItems}
             </div>
         );
     }

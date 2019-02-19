@@ -15,9 +15,8 @@ export function fetchPosts () {
     
 }
 
-export function deletePost(posts) {
+export function deletePost(element) {
     return function (dispatch) {
-        posts.splice(arguments[0],1);
-        dispatch({type:"DELETE_POST", payload:posts})
+            dispatch({type:"DELETE_POST", payload:element})
 };
 }

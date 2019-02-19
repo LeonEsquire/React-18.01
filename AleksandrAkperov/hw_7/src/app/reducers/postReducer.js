@@ -22,8 +22,10 @@ export default function reducer (state = initialPost, action) {
         }
         
         case "DELETE_POST": {
-            return {...state, posts:action.payload}
-            
+            const updatedPosts = state.posts.filter((post) => {
+                return post.id !== action.payload;
+            });
+            return {...state, posts: updatedPosts}
         }
        
     }

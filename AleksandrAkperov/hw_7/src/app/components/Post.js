@@ -17,7 +17,7 @@ export default class  Post extends React.Component {
                     <div className="card-body text-secondary">
                         <p> {this.props.body} </p>
                     </div>  
-                    <button className="btn btn-primary" onClick={this.props.deletepost} >Удалить</button>  
+                    <button className="btn btn-primary" onClick={this.props.del} >Удалить</button>  
                     
                 </div>
                 
