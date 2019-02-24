@@ -1,25 +1,30 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import Login from './Login';
-import Menu from './Menu'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Router, Route, IndexRoute, browserHistory, hashHistory} from 'react-router';
 
-class App extends Component {
-    render() {
-        const menuItems = [
-            {href: '/', name: "Home"},
-            {href: 'products', name: "Products"},
-            {href: 'contacts', name: "Contacts"},
+import Layout from './app/layouts/Layout';
+import MainPage from './app/pages/Main';
+import Users from './app/pages/Users';
+import User from './app/pages/User';
+import PageNotFound from './app/pages/PageNotFound';
+import Posts from './app/pages/Posts';
+import Post from './app/pages/Post';
 
-        ];
+const app = document.querySelector('#root');
 
-       return ( <div>
-           <Menu title = "Main menu" items = {menuItems}/>
-           <h1>Hello!</h1>
-           <Login/>
-       </div> )
-
-    }
-
-}
-
-ReactDOM.render (<App/>, document.querySelector('#root'))
+// localhost:8000/about
+ReactDOM.render(
+    <Router history={browserHistory}>
+        <Route path="/" component={Layout}>
+            <IndexRoute component={MainPage}/>
+            <Route path="users" component={Users}>
+                <Route path=":userId" component={User}/>
+            </Route>
+            <Route path="posts" component={Posts}>
+                <Route path=":id" component={Post}/>
+            </Route>
+            <Route path="*" component={PageNotFound}/>
+        </Route>
+    </Router>,
+    app);

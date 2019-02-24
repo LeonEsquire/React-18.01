@@ -2,23 +2,33 @@ const path = require('path');
 
 module.exports = {
   	entry:{
-		main: path.resolve('./src/app.js'),
+		main: path.resolve(__dirname, 'src', 'app.js'),
 	},
 
 	output: {
-		path: path.resolve('dist'),
+		path: path.resolve(__dirname, 'dist'),
 		filename: 'main.js'
-},
-module: {
+	},
+
+	devServer: {
+  		historyApiFallback: true,
+  		contentBase: path.resolve(__dirname, 'dist'),
+
+	},
+
+	module: {
 	rules :[
 	{
 		test:/\.js$/,
 		exclude: /node_modules/,
-use: {
-	 loader: 'babel-loader',
-	}
-
-},],},
+	    use: 'babel-loader',
+	},
+    {
+        test: /\.css$/,
+        use:['style-loader', 'css-loader']
+		}
+		],
+},
 resolve: {
 	extensions: ['.js', '.jsx'],
 
