@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Todo from "./app/Todo";
+import App from "./app/App";
+
 
 
 
 const app = document.querySelector('#root');
 
 
-ReactDOM.render(<Todo/>, app)
+ReactDOM.render(<App/>, app);
