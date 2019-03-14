@@ -4,13 +4,14 @@ import axios from 'axios';
 
 
 
-const UserList = props =>{
+const UsersList = props =>{
 
     const [users, setUsers] = useState([]);
+    console.log(users);
 
 
 
-    useEffect(()=>{
+    useEffect(()=> {
     axios.get('https://jsonplaceholder.typicode.com/users')
         .then(response => {
             const Data = response.data;
@@ -18,26 +19,28 @@ const UserList = props =>{
             for (const key in Data) {
                 userList.push(Data[key].name);
             }
+            setUsers(userList);
         });
-        setUsers(userList);
 
     }, []);
 
     return(
         <div>
             <ul>
-                {}
+                {users.map(user => (
+                    <li key={user.id}>{user.name}</li>
+                ))}
             </ul>
         </div>
     )
 
 
 
-  }
+  };
 
 
 
 
-export  default UserList;
+export  default UsersList;
 
 
