@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import User from "./User";
 
 
 
@@ -17,7 +18,7 @@ const UsersList = props =>{
             const Data = response.data;
             const userList = [];
             for (const key in Data) {
-                userList.push(Data[key].name);
+                userList.push(Data[key]);
             }
             setUsers(userList);
         });
@@ -27,8 +28,8 @@ const UsersList = props =>{
     return(
         <div>
             <ul>
-                {users.map(user => (
-                    <li key={user.id}>{user.name}</li>
+                {users.map((user, index) => (
+                    <User key={index} {...user} />
                 ))}
             </ul>
         </div>

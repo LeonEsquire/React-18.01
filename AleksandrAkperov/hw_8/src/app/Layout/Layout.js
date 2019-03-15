@@ -5,17 +5,18 @@ import MenuItem from '../components/MenuItems';
 
 const Layout = props => {
 
-    const brand = 'React blog!';
-    //const [brandName, setbrandName] = useState(brand);
+    const [brandName, setbrandName] = useState('Это пришло из Layout.js!');
 
-    const isActive = href => (
-        window.location.pathname === href
-    );
+
+    const isActive = (href) => {
+         return  window.location.pathname === href
+    };
+
 
 
     return (
         <div>
-            <Menu brand={brand}>
+            <Menu brand={brandName}>
                 <MenuItem href="/" active={isActive.bind(this, '/')}>
                     Главная
                 </MenuItem>
