@@ -8,8 +8,6 @@ import User from "./User";
 const UsersList = props =>{
 
     const [users, setUsers] = useState([]);
-    console.log(users);
-
 
 
     useEffect(()=> {
