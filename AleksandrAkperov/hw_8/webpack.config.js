@@ -6,7 +6,11 @@ module.exports = {
     entry: {
         //именно так потому, что этот метод сам ставит нужный слэш
         //в линуксе слэш в обратную сторону
+<<<<<<< HEAD
         main: path.resolve(__dirname, 'src', 'App.js')
+=======
+        main: path.resolve(__dirname, 'src', 'index.js')
+>>>>>>> hw_9
     },
     //куда помещаем сборку
     output: {

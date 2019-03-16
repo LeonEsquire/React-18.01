@@ -2,10 +2,13 @@ import {combineReducers} from 'redux';
 
 
 
-import user from './userReducer';
-import tweets from './tweetsReducer';
+import users from './userReducer';
+import comments from './commentsReducer';
+import posts from './postReducer';
+
 
 export default combineReducers({
-    user: user,
-    tweets:tweets
+    users: users,
+    comments:comments,
+    posts:posts
 })
