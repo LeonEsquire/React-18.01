@@ -3,8 +3,7 @@ import {Link} from 'react-router';
 
 
 const Menu = props => {
-     console.log(props.children);
-   return (
+    return (
        <nav className="navbar navbar-expand-lg navbar-light bg-light">
            <div className="container">
                <Link to='/' className="navbar-brand" >{props.brand}</Link>
