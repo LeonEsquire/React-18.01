@@ -4,9 +4,7 @@ import UsersList from "../components/UsersList";
 
 const Users = props => (
     <div>
-        <h1>Пользователи</h1>
         <UsersList/>
-
     </div>
 );
 
