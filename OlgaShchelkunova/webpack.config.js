@@ -1,9 +1,9 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/App.js',
+    entry: path.resolve(__dirname, 'src', 'App.js'),
     output: {
-        path: path.resolve('dist'),
+        path: path.resolve(__dirname, 'dist'),
         filename: 'main.js'
     },
     mode: 'development',
@@ -19,5 +19,9 @@ module.exports = {
                 use: ['style-loader', 'css-loader']
             }
         ]
+    },
+    devServer: {
+        historyApiFallback: true,
+        contentBase: path.resolve(__dirname, 'dist')
     }
 }

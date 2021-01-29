@@ -1,24 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Blog from './app/components/Blog';
-import WelcomeModal from './app/components/WelcomeModal';
-import './app/styles/style.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Router, Route, IndexRoute, browserHistory, hashHistory} from 'react-router';
 
-class App extends React.Component{
-    render() {
-        const blogPosts = [
-            {title: "First", postBody: "Sometimes it just takes a moment to forget a life, but sometimes life is not enough to forget for a moment."},
-            {title: "Second", postBody: "No one ever told me I was pretty when I was a little girl. All little girls should be told they're pretty, even if they aren't."},
-            {title: "Third", postBody: "The greatest mistake you can make in life is to be continually fearing you will make one."},
-            {title: "Fourth", postBody: "If those aren't tears of happiness, please stop crying."}
-        ]
+import Layout from './app/layouts/Layout';
+import MainPage from './app/pages/Main';
+import Users from './app/pages/Users';
+import User from './app/pages/User';
+import PageNotFound from './app/pages/PageNotFound';
+import Comments from './app/pages/Comments';
+import Comment from './app/pages/Comment';
+import Posts from './app/pages/Posts';
+import Post from './app/pages/Post';
 
-        return (<div>
-            <h1>Blog quotes</h1>
-            <Blog titleBlog="Read me" items={blogPosts}/>
-            <WelcomeModal titleLogin="Hello" />
-        </div>);
-    }
-}
 
-ReactDOM.render(<App/>, document.querySelector('#root'));
+const app = document.querySelector('#root');
+
+ReactDOM.render(
+    <Router history={browserHistory}>
+        <Route path="/" component={Layout}>
+            <IndexRoute component={MainPage}/>
+            <Route path="users" component={Users}>
+                <Route path=":userId" component={User}/>
+            </Route>
+            <Route path="comments" component={Comments}>
+                <Route path=":commentId" component={Comment}/>
+            </Route>
+            <Route path="posts" component={Posts}>
+                <Route path=":postId" component={Post}/>
+            </Route>
+            <Route path="*" component={PageNotFound}/>
+        </Route>
+    </Router>,
+    app);
